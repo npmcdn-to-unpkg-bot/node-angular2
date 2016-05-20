@@ -12,5 +12,6 @@ My Test NodeJS with Angular2 project, to better understand the two working toget
 <ul>
     <li>clone repro</li>
     <li>npm install</li>
+    <li>npm run gulp</li>
     <li>npm start</li>
 </ul>
