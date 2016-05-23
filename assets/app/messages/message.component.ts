@@ -1,4 +1,4 @@
-import {Component} from "angular2/core";
+import {Component, Input} from "angular2/core";
 import {Message} from "./message";
 
 
@@ -38,6 +38,6 @@ import {Message} from "./message";
 })
 
 export class MessageComponent {
-    message:Message = new Message('This is content', null, 'Anthony')
+   @Input() message:Message;
 
 }

@@ -45,8 +45,11 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
         execute: function() {
             MessageComponent = (function () {
                 function MessageComponent() {
-                    this.message = new message_1.Message('This is content', null, 'Anthony');
                 }
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', message_1.Message)
+                ], MessageComponent.prototype, "message", void 0);
                 MessageComponent = __decorate([
                     core_1.Component({
                         selector: 'my-message',
@@ -62,10 +65,10 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
         }
     }
 });
-System.register("app.component", ['angular2/core', "messages/message.component"], function(exports_3, context_3) {
+System.register("app.component", ['angular2/core', "messages/message.component", "messages/message"], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    var core_2, message_component_1;
+    var core_2, message_component_1, message_2;
     var AppComponent;
     return {
         setters:[
@@ -74,18 +77,19 @@ System.register("app.component", ['angular2/core', "messages/message.component"]
             },
             function (message_component_1_1) {
                 message_component_1 = message_component_1_1;
+            },
+            function (message_2_1) {
+                message_2 = message_2_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.message = { git: content, 'A message': ,
-                        author: 'Anthony'
-                    };
+                    this.message = new message_2.Message('Brand new message', null, 'Anthony');
                 }
                 AppComponent = __decorate([
                     core_2.Component({
                         selector: 'my-app',
-                        template: "  \n      <div class=\"row\">\n\n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message></my-message>\n            </section>\n    </div>\n\n    ",
+                        template: "  \n      <div class=\"row\">\n\n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message [message]=\"message\"></my-message>\n            </section>\n    </div>\n\n    ",
                         directives: [message_component_1.MessageComponent]
                     }), 
                     __metadata('design:paramtypes', [])
