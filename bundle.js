@@ -330,10 +330,10 @@ System.register("app.component", ['angular2/core', "angular2/router", "messages/
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router"], function(exports_10, context_10) {
+System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core"], function(exports_10, context_10) {
     "use strict";
     var __moduleName = context_10 && context_10.id;
-    var browser_1, app_component_1, message_service_4, router_3;
+    var browser_1, app_component_1, message_service_4, router_3, core_8;
     return {
         setters:[
             function (browser_1_1) {
@@ -347,9 +347,12 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
             },
             function (router_3_1) {
                 router_3 = router_3_1;
+            },
+            function (core_8_1) {
+                core_8 = core_8_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, router_3.ROUTER_PROVIDERS]);
+            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, router_3.ROUTER_PROVIDERS, core_8.provide(router_3.LocationStrategy, { useClass: router_3.HashLocationStrategy })]);
         }
     }
 });
