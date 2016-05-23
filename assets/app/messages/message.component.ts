@@ -1,11 +1,11 @@
-import {Component, Input} from "angular2/core";
+import {Component, Input, Output, EventEmitter} from "angular2/core";
 import {Message} from "./message";
 
 
 @Component({
     selector: 'my-message',
     template: `
-         <article class="panel panel-default">
+         <article class="panel panel-default" [ngStyle]="{'background-color': color}" (mouseenter)="color = 'red'" (mouseleave)="color = 'white'">
             <div class="panel-body">
                 {{ message.content }}
             </div>    
@@ -39,11 +39,12 @@ import {Message} from "./message";
 
 export class MessageComponent {
    @Input() message:Message;
+   @Output() editClicked = new EventEmitter<string>();
+    color = 'red';
 
 
     onClick() {
-        this.message.content = 'Changed';
-        console.log('Edit button clicked');
+        this.editClicked.emit('Changed');
     }
 
 }
