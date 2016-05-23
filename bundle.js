@@ -29,58 +29,16 @@ System.register("messages/message", [], function(exports_1, context_1) {
         }
     }
 });
-System.register("messages/message.component", ["angular2/core", "messages/message"], function(exports_2, context_2) {
+System.register("messages/message.service", ["messages/message"], function(exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
-    var core_1, message_1;
-    var MessageComponent;
+    var message_1;
+    var MessageService;
     return {
         setters:[
-            function (core_1_1) {
-                core_1 = core_1_1;
-            },
             function (message_1_1) {
                 message_1 = message_1_1;
             }],
-        execute: function() {
-            MessageComponent = (function () {
-                function MessageComponent() {
-                    this.editClicked = new core_1.EventEmitter();
-                    this.show = true;
-                }
-                MessageComponent.prototype.onClick = function () {
-                    this.editClicked.emit('Changed');
-                    console.log('Edit button clicked!');
-                };
-                __decorate([
-                    core_1.Input(), 
-                    __metadata('design:type', message_1.Message)
-                ], MessageComponent.prototype, "message", void 0);
-                __decorate([
-                    core_1.Output(), 
-                    __metadata('design:type', Object)
-                ], MessageComponent.prototype, "editClicked", void 0);
-                MessageComponent = __decorate([
-                    core_1.Component({
-                        selector: 'my-message',
-                        template: "\n         <article class=\"panel panel-default\" *ngIf=\"show\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a (click)=\"onClick()\">Edit</a>\n                    <a href=\"#\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
-                        styles: [
-                            "\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
-                    }), 
-                    __metadata('design:paramtypes', [])
-                ], MessageComponent);
-                return MessageComponent;
-            }());
-            exports_2("MessageComponent", MessageComponent);
-        }
-    }
-});
-System.register("messages/message.service", [], function(exports_3, context_3) {
-    "use strict";
-    var __moduleName = context_3 && context_3.id;
-    var MessageService;
-    return {
-        setters:[],
         execute: function() {
             MessageService = (function () {
                 function MessageService() {
@@ -93,19 +51,76 @@ System.register("messages/message.service", [], function(exports_3, context_3) {
                 MessageService.prototype.getMessages = function () {
                     return this.messages;
                 };
+                MessageService.prototype.editMessage = function (message) {
+                    this.messages[this.messages.indexOf(message)] = new message_1.Message('Edited', null, 'Dummy');
+                };
                 MessageService.prototype.deleteMessage = function (message) {
                     this.messages.splice(this.messages.indexOf(message), 1);
                 };
                 return MessageService;
             }());
-            exports_3("MessageService", MessageService);
+            exports_2("MessageService", MessageService);
+        }
+    }
+});
+System.register("messages/message.component", ["angular2/core", "messages/message", "messages/message.service"], function(exports_3, context_3) {
+    "use strict";
+    var __moduleName = context_3 && context_3.id;
+    var core_1, message_2, message_service_1;
+    var MessageComponent;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (message_2_1) {
+                message_2 = message_2_1;
+            },
+            function (message_service_1_1) {
+                message_service_1 = message_service_1_1;
+            }],
+        execute: function() {
+            MessageComponent = (function () {
+                function MessageComponent(_messageService) {
+                    this._messageService = _messageService;
+                    this.editClicked = new core_1.EventEmitter();
+                    this.show = true;
+                }
+                MessageComponent.prototype.onEdit = function () {
+                    this._messageService.editMessage(this.message);
+                    console.log('Edit button clicked!');
+                };
+                MessageComponent.prototype.onDelete = function () {
+                    this._messageService.deleteMessage(this.message);
+                    console.log('Delete button clicked!');
+                };
+                __decorate([
+                    core_1.Input(), 
+                    __metadata('design:type', message_2.Message)
+                ], MessageComponent.prototype, "message", void 0);
+                __decorate([
+                    core_1.Output(), 
+                    __metadata('design:type', Object)
+                ], MessageComponent.prototype, "editClicked", void 0);
+                MessageComponent = __decorate([
+                    core_1.Component({
+                        selector: 'my-message',
+                        template: "\n         <article class=\"panel panel-default\" *ngIf=\"show\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a (click)=\"onEdit()\">Edit</a>\n                    <a (click)=\"onDelete()\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
+                        styles: [
+                            "\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
+                    }), 
+                    __metadata('design:paramtypes', [message_service_1.MessageService])
+                ], MessageComponent);
+                return MessageComponent;
+            }());
+            exports_3("MessageComponent", MessageComponent);
         }
     }
 });
 System.register("messages/message-list.component", ['angular2/core', "messages/message.component", "messages/message.service"], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
-    var core_2, message_component_1, message_service_1;
+    var core_2, message_component_1, message_service_2;
     var MessageListComponent;
     return {
         setters:[
@@ -115,8 +130,8 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
             function (message_component_1_1) {
                 message_component_1 = message_component_1_1;
             },
-            function (message_service_1_1) {
-                message_service_1 = message_service_1_1;
+            function (message_service_2_1) {
+                message_service_2 = message_service_2_1;
             }],
         execute: function() {
             MessageListComponent = (function () {
@@ -132,7 +147,7 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
                         template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n           <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>         \n           <!-- The underlying code is for beta17 > rc*  release -->\n           <!-- <my-message *ngFor=\"let message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message> -->\n        </section>              \n    ",
                         directives: [message_component_1.MessageComponent]
                     }), 
-                    __metadata('design:paramtypes', [message_service_1.MessageService])
+                    __metadata('design:paramtypes', [message_service_2.MessageService])
                 ], MessageListComponent);
                 return MessageListComponent;
             }());
@@ -143,18 +158,18 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
 System.register("messages/message-input.component", ['angular2/core', "messages/message", "messages/message.service"], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
-    var core_3, message_2, message_service_2;
+    var core_3, message_3, message_service_3;
     var MessageInputComponent;
     return {
         setters:[
             function (core_3_1) {
                 core_3 = core_3_1;
             },
-            function (message_2_1) {
-                message_2 = message_2_1;
+            function (message_3_1) {
+                message_3 = message_3_1;
             },
-            function (message_service_2_1) {
-                message_service_2 = message_service_2_1;
+            function (message_service_3_1) {
+                message_service_3 = message_service_3_1;
             }],
         execute: function() {
             MessageInputComponent = (function () {
@@ -162,7 +177,7 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                     this._messageService = _messageService;
                 }
                 MessageInputComponent.prototype.onCreate = function (content) {
-                    var message = new message_2.Message(content, null, 'dummy');
+                    var message = new message_3.Message(content, null, 'dummy');
                     this._messageService.addMessage(message);
                 };
                 MessageInputComponent = __decorate([
@@ -170,7 +185,7 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                         selector: 'my-message-input',
                         template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input type=\"text\" class=\"form-control\" id=\"content\" #input>                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onCreate(input.value)\">Send Message</button>\n       </section>\n    "
                     }), 
-                    __metadata('design:paramtypes', [message_service_2.MessageService])
+                    __metadata('design:paramtypes', [message_service_3.MessageService])
                 ], MessageInputComponent);
                 return MessageInputComponent;
             }());
@@ -215,7 +230,7 @@ System.register("app.component", ['angular2/core', "messages/message-list.compon
 System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service"], function(exports_7, context_7) {
     "use strict";
     var __moduleName = context_7 && context_7.id;
-    var browser_1, app_component_1, message_service_3;
+    var browser_1, app_component_1, message_service_4;
     return {
         setters:[
             function (browser_1_1) {
@@ -224,11 +239,11 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
             function (app_component_1_1) {
                 app_component_1 = app_component_1_1;
             },
-            function (message_service_3_1) {
-                message_service_3 = message_service_3_1;
+            function (message_service_4_1) {
+                message_service_4 = message_service_4_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [message_service_3.MessageService]);
+            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService]);
         }
     }
 });

@@ -8,8 +8,12 @@ export class MessageService{
         console.log(this.messages);
     }
 
-    getMessages(){
+    getMessages() {
         return this.messages;
+    }
+
+    editMessage(message: Message) {
+        this.messages[this.messages.indexOf(message)] = new Message('Edited', null, 'Dummy');
     }
 
     deleteMessage(message: Message) {

@@ -1,5 +1,6 @@
 import {Component, Input, Output, EventEmitter} from "angular2/core";
 import {Message} from "./message";
+import {MessageService} from "./message.service";
 
 
 @Component({
@@ -14,8 +15,8 @@ import {Message} from "./message";
                 {{ message.username }}
                 </div>
                 <div class="config">
-                    <a (click)="onClick()">Edit</a>
-                    <a href="#">Delete</a>
+                    <a (click)="onEdit()">Edit</a>
+                    <a (click)="onDelete()">Delete</a>
                </div>
             </footer>
          </article>  
@@ -42,10 +43,16 @@ export class MessageComponent {
    @Output() editClicked = new EventEmitter<string>();
     show = true;
 
+    constructor(private _messageService: MessageService) {}
 
-    onClick() {
-        this.editClicked.emit('Changed');
+    onEdit() {
+        this._messageService.editMessage(this.message);
         console.log('Edit button clicked!');
+    }
+
+    onDelete() {
+        this._messageService.deleteMessage(this.message);
+        console.log('Delete button clicked!');
     }
 
 }
