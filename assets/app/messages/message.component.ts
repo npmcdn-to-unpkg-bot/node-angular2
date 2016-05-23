@@ -14,7 +14,7 @@ import {Message} from "./message";
                 {{ message.username }}
                 </div>
                 <div class="config">
-                    <a href="#">Edit</a>
+                    <a (click)="onClick()">Edit</a>
                     <a href="#">Delete</a>
                </div>
             </footer>
@@ -39,5 +39,11 @@ import {Message} from "./message";
 
 export class MessageComponent {
    @Input() message:Message;
+
+
+    onClick() {
+        this.message.content = 'Changed';
+        console.log('Edit button clicked');
+    }
 
 }

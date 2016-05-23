@@ -46,6 +46,10 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
             MessageComponent = (function () {
                 function MessageComponent() {
                 }
+                MessageComponent.prototype.onClick = function () {
+                    this.message.content = 'Changed';
+                    console.log('Edit button clicked');
+                };
                 __decorate([
                     core_1.Input(), 
                     __metadata('design:type', message_1.Message)
@@ -53,7 +57,7 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
                 MessageComponent = __decorate([
                     core_1.Component({
                         selector: 'my-message',
-                        template: "\n         <article class=\"panel panel-default\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a href=\"#\">Edit</a>\n                    <a href=\"#\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
+                        template: "\n         <article class=\"panel panel-default\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a (click)=\"onClick()\">Edit</a>\n                    <a href=\"#\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
                         styles: [
                             "\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
                     }), 
