@@ -114,10 +114,37 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
         }
     }
 });
-System.register("messages/message-input.component", ['angular2/core', "messages/message"], function(exports_4, context_4) {
+System.register("messages/message.service", [], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
-    var core_3, message_3;
+    var MessageService;
+    return {
+        setters:[],
+        execute: function() {
+            MessageService = (function () {
+                function MessageService() {
+                    this.messages = [];
+                }
+                MessageService.prototype.addMessage = function (message) {
+                    this.messages.push(message);
+                    console.log(this.messages);
+                };
+                MessageService.prototype.getMessages = function () {
+                    return this.messages;
+                };
+                MessageService.prototype.deleteMessage = function (message) {
+                    this.messages.splice(this.messages.indexOf(message), 1);
+                };
+                return MessageService;
+            }());
+            exports_4("MessageService", MessageService);
+        }
+    }
+});
+System.register("messages/message-input.component", ['angular2/core', "messages/message", "messages/message.service"], function(exports_5, context_5) {
+    "use strict";
+    var __moduleName = context_5 && context_5.id;
+    var core_3, message_3, message_service_1;
     var MessageInputComponent;
     return {
         setters:[
@@ -126,31 +153,36 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
             },
             function (message_3_1) {
                 message_3 = message_3_1;
+            },
+            function (message_service_1_1) {
+                message_service_1 = message_service_1_1;
             }],
         execute: function() {
             MessageInputComponent = (function () {
-                function MessageInputComponent() {
+                function MessageInputComponent(_messageService) {
+                    this._messageService = _messageService;
                 }
                 MessageInputComponent.prototype.onCreate = function (content) {
                     var message = new message_3.Message(content, null, 'dummy');
-                    console.log(message);
+                    this._messageService.addMessage(message);
                 };
                 MessageInputComponent = __decorate([
                     core_3.Component({
                         selector: 'my-message-input',
-                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input type=\"text\" class=\"form-control\" id=\"content\" #input>                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onCreate(input.value)\">Add Message</button>\n       </section>\n    "
+                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input type=\"text\" class=\"form-control\" id=\"content\" #input>                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onCreate(input.value)\">Send Message</button>\n       </section>\n    ",
+                        providers: [message_service_1.MessageService]
                     }), 
-                    __metadata('design:paramtypes', [])
+                    __metadata('design:paramtypes', [message_service_1.MessageService])
                 ], MessageInputComponent);
                 return MessageInputComponent;
             }());
-            exports_4("MessageInputComponent", MessageInputComponent);
+            exports_5("MessageInputComponent", MessageInputComponent);
         }
     }
 });
-System.register("app.component", ['angular2/core', "messages/message-list.component", "messages/message-input.component"], function(exports_5, context_5) {
+System.register("app.component", ['angular2/core', "messages/message-list.component", "messages/message-input.component"], function(exports_6, context_6) {
     "use strict";
-    var __moduleName = context_5 && context_5.id;
+    var __moduleName = context_6 && context_6.id;
     var core_4, message_list_component_1, message_input_component_1;
     var AppComponent;
     return {
@@ -178,13 +210,13 @@ System.register("app.component", ['angular2/core', "messages/message-list.compon
                 ], AppComponent);
                 return AppComponent;
             }());
-            exports_5("AppComponent", AppComponent);
+            exports_6("AppComponent", AppComponent);
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component"], function(exports_6, context_6) {
+System.register("boot", ['angular2/platform/browser', "app.component"], function(exports_7, context_7) {
     "use strict";
-    var __moduleName = context_6 && context_6.id;
+    var __moduleName = context_7 && context_7.id;
     var browser_1, app_component_1;
     return {
         setters:[
@@ -199,9 +231,9 @@ System.register("boot", ['angular2/platform/browser', "app.component"], function
         }
     }
 });
-System.register("auth/user", [], function(exports_7, context_7) {
+System.register("auth/user", [], function(exports_8, context_8) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
+    var __moduleName = context_8 && context_8.id;
     var User;
     return {
         setters:[],
@@ -219,7 +251,7 @@ System.register("auth/user", [], function(exports_7, context_7) {
                 }
                 return User;
             }());
-            exports_7("User", User);
+            exports_8("User", User);
         }
     }
 });
