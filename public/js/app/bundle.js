@@ -7,59 +7,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("app.component", ['angular2/core'], function(exports_1, context_1) {
+System.register("messages/message", [], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var core_1;
-    var AppComponent;
-    return {
-        setters:[
-            function (core_1_1) {
-                core_1 = core_1_1;
-            }],
-        execute: function() {
-            AppComponent = (function () {
-                function AppComponent() {
-                    this.message = {
-                        content: 'A message',
-                        author: 'Anthony'
-                    };
-                }
-                AppComponent = __decorate([
-                    core_1.Component({
-                        selector: 'my-app',
-                        template: "  \n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <input type=\"text\" [(ngModel)]=\"message.content\"><br><br>                \n            </section>  \n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                     <article class=\"panel panel-default\">\n                         <div class=\"panel-body\">\n                            {{ message.content }}\n                        </div>\n                        <footer class=\"panel-footer\">\n                              <div class=\"author\">\n                                   {{ message.author }}\n                              </div>\n                              <div class=\"config\">\n                                 <a href=\"#\">Edit</a>\n                                 <a href=\"#\">Delete</a>\n                             </div>\n                        </footer>\n                     </article>    \n            </section>\n    </div>\n\n    ",
-                        styles: [
-                            "\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
-                    }), 
-                    __metadata('design:paramtypes', [])
-                ], AppComponent);
-                return AppComponent;
-            }());
-            exports_1("AppComponent", AppComponent);
-        }
-    }
-});
-System.register("boot", ['angular2/platform/browser', "app.component"], function(exports_2, context_2) {
-    "use strict";
-    var __moduleName = context_2 && context_2.id;
-    var browser_1, app_component_1;
-    return {
-        setters:[
-            function (browser_1_1) {
-                browser_1 = browser_1_1;
-            },
-            function (app_component_1_1) {
-                app_component_1 = app_component_1_1;
-            }],
-        execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent);
-        }
-    }
-});
-System.register("message", [], function(exports_3, context_3) {
-    "use strict";
-    var __moduleName = context_3 && context_3.id;
     var Message;
     return {
         setters:[],
@@ -75,13 +25,98 @@ System.register("message", [], function(exports_3, context_3) {
                 }
                 return Message;
             }());
-            exports_3("Message", Message);
+            exports_1("Message", Message);
         }
     }
 });
-System.register("user", [], function(exports_4, context_4) {
+System.register("messages/message.component", ["angular2/core", "messages/message"], function(exports_2, context_2) {
+    "use strict";
+    var __moduleName = context_2 && context_2.id;
+    var core_1, message_1;
+    var MessageComponent;
+    return {
+        setters:[
+            function (core_1_1) {
+                core_1 = core_1_1;
+            },
+            function (message_1_1) {
+                message_1 = message_1_1;
+            }],
+        execute: function() {
+            MessageComponent = (function () {
+                function MessageComponent() {
+                    this.message = new message_1.Message('This is content', null, 'Anthony');
+                }
+                MessageComponent = __decorate([
+                    core_1.Component({
+                        selector: 'my-message',
+                        template: "\n         <article class=\"panel panel-default\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a href=\"#\">Edit</a>\n                    <a href=\"#\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
+                        styles: [
+                            "\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], MessageComponent);
+                return MessageComponent;
+            }());
+            exports_2("MessageComponent", MessageComponent);
+        }
+    }
+});
+System.register("app.component", ['angular2/core', "messages/message.component"], function(exports_3, context_3) {
+    "use strict";
+    var __moduleName = context_3 && context_3.id;
+    var core_2, message_component_1;
+    var AppComponent;
+    return {
+        setters:[
+            function (core_2_1) {
+                core_2 = core_2_1;
+            },
+            function (message_component_1_1) {
+                message_component_1 = message_component_1_1;
+            }],
+        execute: function() {
+            AppComponent = (function () {
+                function AppComponent() {
+                    this.message = {
+                        content: 'A message',
+                        author: 'Anthony'
+                    };
+                }
+                AppComponent = __decorate([
+                    core_2.Component({
+                        selector: 'my-app',
+                        template: "  \n      <div class=\"row\">\n\n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message></my-message>\n            </section>\n    </div>\n\n    ",
+                        directives: [message_component_1.MessageComponent]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], AppComponent);
+                return AppComponent;
+            }());
+            exports_3("AppComponent", AppComponent);
+        }
+    }
+});
+System.register("boot", ['angular2/platform/browser', "app.component"], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
+    var browser_1, app_component_1;
+    return {
+        setters:[
+            function (browser_1_1) {
+                browser_1 = browser_1_1;
+            },
+            function (app_component_1_1) {
+                app_component_1 = app_component_1_1;
+            }],
+        execute: function() {
+            browser_1.bootstrap(app_component_1.AppComponent);
+        }
+    }
+});
+System.register("auth/user", [], function(exports_5, context_5) {
+    "use strict";
+    var __moduleName = context_5 && context_5.id;
     var User;
     return {
         setters:[],
@@ -99,9 +134,9 @@ System.register("user", [], function(exports_4, context_4) {
                 }
                 return User;
             }());
-            exports_4("User", User);
+            exports_5("User", User);
         }
     }
 });
 
-//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5jb21wb25lbnQudHMiLCJib290LnRzIiwibWVzc2FnZS50cyIsInVzZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7WUE2Q0E7Z0JBQUE7b0JBQ0ksWUFBTyxHQUFHO3dCQUNOLE9BQU8sRUFBRSxXQUFXO3dCQUNwQixNQUFNLEVBQUUsU0FBUztxQkFDcEIsQ0FBQztnQkFFTixDQUFDO2dCQWxERDtvQkFBQyxnQkFBUyxDQUFDO3dCQUNQLFFBQVEsRUFBRSxRQUFRO3dCQUNsQixRQUFRLEVBQUUsMmdDQXlCVDt3QkFDRCxNQUFNLEVBQUU7NEJBQ0osK1dBYUMsQ0FBQztxQkFDVCxDQUFDOztnQ0FBQTtnQkFPRixtQkFBQztZQUFELENBTkEsQUFNQyxJQUFBO1lBTkQsdUNBTUMsQ0FBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7WUMvQ0QsbUJBQVMsQ0FBQyw0QkFBWSxDQUFDLENBQUM7Ozs7Ozs7Ozs7O1lDSnhCO2dCQU1JLHdEQUF3RDtnQkFDeEQsMkRBQTJEO2dCQUMzRCxpQkFBYSxPQUFlLEVBQUUsU0FBa0IsRUFBRSxRQUFpQixFQUFFLE1BQWU7b0JBQ2hGLElBQUksQ0FBQyxPQUFPLEdBQUcsT0FBTyxDQUFDO29CQUN2QixJQUFJLENBQUMsU0FBUyxHQUFHLFNBQVMsQ0FBQztvQkFDM0IsSUFBSSxDQUFDLFFBQVEsR0FBRyxRQUFRLENBQUM7b0JBQ3pCLElBQUksQ0FBQyxNQUFNLEdBQUcsTUFBTSxDQUFDO2dCQUN6QixDQUFDO2dCQUNMLGNBQUM7WUFBRCxDQWRBLEFBY0MsSUFBQTtZQWRELDZCQWNDLENBQUE7Ozs7Ozs7Ozs7O1lDZEQ7Z0JBRUksb0ZBQW9GO2dCQUNwRixxRkFBcUY7Z0JBQ3JGLHNGQUFzRjtnQkFDdEYsY0FBbUIsS0FBYSxFQUFTLFFBQWdCLEVBQVMsU0FBa0IsRUFBUyxRQUFpQjtvQkFBM0YsVUFBSyxHQUFMLEtBQUssQ0FBUTtvQkFBUyxhQUFRLEdBQVIsUUFBUSxDQUFRO29CQUFTLGNBQVMsR0FBVCxTQUFTLENBQVM7b0JBQVMsYUFBUSxHQUFSLFFBQVEsQ0FBUztvQkFDMUcsSUFBSSxDQUFDLEtBQUssR0FBRyxLQUFLLENBQUM7Z0JBQ3ZCLENBQUM7Z0JBQ0wsV0FBQztZQUFELENBUkEsQUFRQyxJQUFBO1lBUkQsdUJBUUMsQ0FBQSIsImZpbGUiOiIuLi8uLi8uLi9ub2RlLWFuZ3VsYXIyL2J1bmRsZS5qcyIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7Q29tcG9uZW50fSBmcm9tICdhbmd1bGFyMi9jb3JlJztcbkBDb21wb25lbnQoe1xuICAgIHNlbGVjdG9yOiAnbXktYXBwJyxcbiAgICB0ZW1wbGF0ZTogYCAgXG4gICAgICA8ZGl2IGNsYXNzPVwicm93XCI+XG4gICAgICAgICAgICA8c2VjdGlvbiBjbGFzcz1cImNvbC1tZC04IGNvbC1tZC1vZmZzZXQtMlwiPlxuICAgICAgICAgICAgICAgIDxpbnB1dCB0eXBlPVwidGV4dFwiIFsobmdNb2RlbCldPVwibWVzc2FnZS5jb250ZW50XCI+PGJyPjxicj4gICAgICAgICAgICAgICAgXG4gICAgICAgICAgICA8L3NlY3Rpb24+ICBcbiAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwicm93XCI+XG4gICAgICAgICAgICA8c2VjdGlvbiBjbGFzcz1cImNvbC1tZC04IGNvbC1tZC1vZmZzZXQtMlwiPlxuICAgICAgICAgICAgICAgICAgICAgPGFydGljbGUgY2xhc3M9XCJwYW5lbCBwYW5lbC1kZWZhdWx0XCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cInBhbmVsLWJvZHlcIj5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICB7eyBtZXNzYWdlLmNvbnRlbnQgfX1cbiAgICAgICAgICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgICAgICAgICAgPGZvb3RlciBjbGFzcz1cInBhbmVsLWZvb3RlclwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPGRpdiBjbGFzcz1cImF1dGhvclwiPlxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICB7eyBtZXNzYWdlLmF1dGhvciB9fVxuICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwiY29uZmlnXCI+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YSBocmVmPVwiI1wiPkVkaXQ8L2E+XG4gICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICA8YSBocmVmPVwiI1wiPkRlbGV0ZTwvYT5cbiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgPC9kaXY+XG4gICAgICAgICAgICAgICAgICAgICAgICA8L2Zvb3Rlcj5cbiAgICAgICAgICAgICAgICAgICAgIDwvYXJ0aWNsZT4gICAgXG4gICAgICAgICAgICA8L3NlY3Rpb24+XG4gICAgPC9kaXY+XG5cbiAgICBgLFxuICAgIHN0eWxlczogW1xuICAgICAgICBgXG4gICAgICAgICAgICAuYXV0aG9yIHtcbiAgICAgICAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgICAgICAgICAgZm9udC1zdHlsZTogaXRhbGljO1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgICAgICAgICB3aWR0aDogODAlO1xuICAgICAgICAgICAgfVxuICAgICAgICAgICAgLmNvbmZpZyB7XG4gICAgICAgICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgICAgICAgICAgICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgICAgICAgICB3aWR0aDogMTklO1xuICAgICAgICAgICAgfVxuICAgICAgICBgXVxufSlcbmV4cG9ydCBjbGFzcyBBcHBDb21wb25lbnQge1xuICAgIG1lc3NhZ2UgPSB7XG4gICAgICAgIGNvbnRlbnQ6ICdBIG1lc3NhZ2UnLFxuICAgICAgICBhdXRob3I6ICdBbnRob255J1xuICAgIH07XG5cbn0iLCIvLy88cmVmZXJlbmNlIHBhdGg9XCIuLi8uLi9ub2RlX21vZHVsZXMvYW5ndWxhcjIvdHlwaW5ncy9icm93c2VyLmQudHNcIi8+XG5pbXBvcnQge2Jvb3RzdHJhcH0gZnJvbSAnYW5ndWxhcjIvcGxhdGZvcm0vYnJvd3Nlcic7XG5pbXBvcnQge0FwcENvbXBvbmVudH0gZnJvbSBcIi4vYXBwLmNvbXBvbmVudFwiO1xuXG5ib290c3RyYXAoQXBwQ29tcG9uZW50KTsiLCJleHBvcnQgY2xhc3MgTWVzc2FnZSB7XG4gICAgY29udGVudDogc3RyaW5nO1xuICAgIHVzZXJuYW1lOiBzdHJpbmc7XG4gICAgbWVzc2FnZUlkOiBzdHJpbmc7XG4gICAgdXNlcklkOiBzdHJpbmc7XG5cbiAgICAvLyBUaGUgPyBiZWhpbmQgdGhlIHBhcmFtZXRlcnMgaW4gdGhlIGNvbnN0cnVjdG9yIG1lYW5zLFxuICAgIC8vIHRoYXQgdGhlIHZhbHVlcyBkb24ndCBuZWVkIHRvIGJlIGF2YWlsYWJsZSBvciBwcmVzZW50ZWQuXG4gICAgY29uc3RydWN0b3IgKGNvbnRlbnQ6IHN0cmluZywgbWVzc2FnZUlkPzogc3RyaW5nLCB1c2VybmFtZT86IHN0cmluZywgdXNlcklkPzogc3RyaW5nKSB7XG4gICAgICAgIHRoaXMuY29udGVudCA9IGNvbnRlbnQ7XG4gICAgICAgIHRoaXMubWVzc2FnZUlkID0gbWVzc2FnZUlkO1xuICAgICAgICB0aGlzLnVzZXJuYW1lID0gdXNlcm5hbWU7XG4gICAgICAgIHRoaXMudXNlcklkID0gdXNlcklkO1xuICAgIH1cbn0iLCJleHBvcnQgY2xhc3MgVXNlciB7XG5cbiAgICAvLyBMb29rIGF0IHRoZSBwcm9wZXJ0aWVzIGluIHRoZSBjb25zdHJ1Y3RvciwgV2hhdCBJIGRvIGhlcmUgaXMgc29tZXRoaW5nIGJlYXV0aWZ1bC5cbiAgICAvLyBJIGluc3RhbnRseSBkZWZpbmUgdGhlIHByb3BlcnRpZXMgYXMgcHVibGljLiBUaGlzIHdpbCBnZXQgdGhlIHByb3BlcnRpZXMgYW5kIGFsc28sXG4gICAgLy8gY3JlYXRlIGEgZmllbGQgaW4gdGhpcyBjbGFzcyBsaWtlIHRoaXMuZW1haWwuIExlc3MgY29kZSwgYW5kIGRvIHRoZSBzYW1lIHRoaW5nLiA6LSlcbiAgICBjb25zdHJ1Y3RvcihwdWJsaWMgZW1haWw6IHN0cmluZywgcHVibGljIHBhc3N3b3JkOiBzdHJpbmcsIHB1YmxpYyBmaXJzdE5hbWU/OiBzdHJpbmcsIHB1YmxpYyBsYXN0TmFtZT86IHN0cmluZyl7XG4gICAgICAgIHRoaXMuZW1haWwgPSBlbWFpbDtcbiAgICB9XG59XG4iXSwic291cmNlUm9vdCI6Ii9zb3VyY2UvIn0=
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1lc3NhZ2VzL21lc3NhZ2UudHMiLCJtZXNzYWdlcy9tZXNzYWdlLmNvbXBvbmVudC50cyIsImFwcC5jb21wb25lbnQudHMiLCJib290LnRzIiwiYXV0aC91c2VyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7WUFBQTtnQkFNSSx3REFBd0Q7Z0JBQ3hELDJEQUEyRDtnQkFDM0QsaUJBQWEsT0FBZSxFQUFFLFNBQWtCLEVBQUUsUUFBaUIsRUFBRSxNQUFlO29CQUNoRixJQUFJLENBQUMsT0FBTyxHQUFHLE9BQU8sQ0FBQztvQkFDdkIsSUFBSSxDQUFDLFNBQVMsR0FBRyxTQUFTLENBQUM7b0JBQzNCLElBQUksQ0FBQyxRQUFRLEdBQUcsUUFBUSxDQUFDO29CQUN6QixJQUFJLENBQUMsTUFBTSxHQUFHLE1BQU0sQ0FBQztnQkFDekIsQ0FBQztnQkFDTCxjQUFDO1lBQUQsQ0FkQSxBQWNDLElBQUE7WUFkRCw2QkFjQyxDQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7WUN5QkQ7Z0JBQUE7b0JBQ0ksWUFBTyxHQUFXLElBQUksaUJBQU8sQ0FBQyxpQkFBaUIsRUFBRSxJQUFJLEVBQUUsU0FBUyxDQUFDLENBQUE7Z0JBRXJFLENBQUM7Z0JBdENEO29CQUFDLGdCQUFTLENBQUM7d0JBQ1AsUUFBUSxFQUFFLFlBQVk7d0JBQ3RCLFFBQVEsRUFBRSw2ZkFlVDt3QkFDRCxNQUFNLEVBQUU7NEJBQ0osK1dBYUMsQ0FBQztxQkFDVCxDQUFDOztvQ0FBQTtnQkFLRix1QkFBQztZQUFELENBSEEsQUFHQyxJQUFBO1lBSEQsK0NBR0MsQ0FBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7O1lDeEJEO2dCQUFBO29CQUNJLFlBQU8sR0FBRzt3QkFDTixPQUFPLEVBQUUsV0FBVzt3QkFDcEIsTUFBTSxFQUFFLFNBQVM7cUJBQ3BCLENBQUM7Z0JBRU4sQ0FBQztnQkFyQkQ7b0JBQUMsZ0JBQVMsQ0FBQzt3QkFDUCxRQUFRLEVBQUUsUUFBUTt3QkFDbEIsUUFBUSxFQUFFLDBOQVVUO3dCQUNELFVBQVUsRUFBRSxDQUFDLG9DQUFnQixDQUFDO3FCQUNqQyxDQUFDOztnQ0FBQTtnQkFPRixtQkFBQztZQUFELENBTkEsQUFNQyxJQUFBO1lBTkQsdUNBTUMsQ0FBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7WUNwQkQsbUJBQVMsQ0FBQyw0QkFBWSxDQUFDLENBQUM7Ozs7Ozs7Ozs7O1lDSnhCO2dCQUVJLG9GQUFvRjtnQkFDcEYscUZBQXFGO2dCQUNyRixzRkFBc0Y7Z0JBQ3RGLGNBQW1CLEtBQWEsRUFBUyxRQUFnQixFQUFTLFNBQWtCLEVBQVMsUUFBaUI7b0JBQTNGLFVBQUssR0FBTCxLQUFLLENBQVE7b0JBQVMsYUFBUSxHQUFSLFFBQVEsQ0FBUTtvQkFBUyxjQUFTLEdBQVQsU0FBUyxDQUFTO29CQUFTLGFBQVEsR0FBUixRQUFRLENBQVM7b0JBQzFHLElBQUksQ0FBQyxLQUFLLEdBQUcsS0FBSyxDQUFDO2dCQUN2QixDQUFDO2dCQUNMLFdBQUM7WUFBRCxDQVJBLEFBUUMsSUFBQTtZQVJELHVCQVFDLENBQUEiLCJmaWxlIjoiLi4vLi4vLi4vbm9kZS1hbmd1bGFyMi9idW5kbGUuanMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgY2xhc3MgTWVzc2FnZSB7XG4gICAgY29udGVudDogc3RyaW5nO1xuICAgIHVzZXJuYW1lOiBzdHJpbmc7XG4gICAgbWVzc2FnZUlkOiBzdHJpbmc7XG4gICAgdXNlcklkOiBzdHJpbmc7XG5cbiAgICAvLyBUaGUgPyBiZWhpbmQgdGhlIHBhcmFtZXRlcnMgaW4gdGhlIGNvbnN0cnVjdG9yIG1lYW5zLFxuICAgIC8vIHRoYXQgdGhlIHZhbHVlcyBkb24ndCBuZWVkIHRvIGJlIGF2YWlsYWJsZSBvciBwcmVzZW50ZWQuXG4gICAgY29uc3RydWN0b3IgKGNvbnRlbnQ6IHN0cmluZywgbWVzc2FnZUlkPzogc3RyaW5nLCB1c2VybmFtZT86IHN0cmluZywgdXNlcklkPzogc3RyaW5nKSB7XG4gICAgICAgIHRoaXMuY29udGVudCA9IGNvbnRlbnQ7XG4gICAgICAgIHRoaXMubWVzc2FnZUlkID0gbWVzc2FnZUlkO1xuICAgICAgICB0aGlzLnVzZXJuYW1lID0gdXNlcm5hbWU7XG4gICAgICAgIHRoaXMudXNlcklkID0gdXNlcklkO1xuICAgIH1cbn0iLCJpbXBvcnQge0NvbXBvbmVudH0gZnJvbSBcImFuZ3VsYXIyL2NvcmVcIjtcbmltcG9ydCB7TWVzc2FnZX0gZnJvbSBcIi4vbWVzc2FnZVwiO1xuXG5cbkBDb21wb25lbnQoe1xuICAgIHNlbGVjdG9yOiAnbXktbWVzc2FnZScsXG4gICAgdGVtcGxhdGU6IGBcbiAgICAgICAgIDxhcnRpY2xlIGNsYXNzPVwicGFuZWwgcGFuZWwtZGVmYXVsdFwiPlxuICAgICAgICAgICAgPGRpdiBjbGFzcz1cInBhbmVsLWJvZHlcIj5cbiAgICAgICAgICAgICAgICB7eyBtZXNzYWdlLmNvbnRlbnQgfX1cbiAgICAgICAgICAgIDwvZGl2PiAgICBcbiAgICAgICAgICAgIDxmb290ZXIgY2xhc3M9XCJwYW5lbC1mb290ZXJcIj5cbiAgICAgICAgICAgICAgICA8ZGl2IGNsYXNzPVwiYXV0aG9yXCI+XG4gICAgICAgICAgICAgICAge3sgbWVzc2FnZS51c2VybmFtZSB9fVxuICAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgICAgIDxkaXYgY2xhc3M9XCJjb25maWdcIj5cbiAgICAgICAgICAgICAgICAgICAgPGEgaHJlZj1cIiNcIj5FZGl0PC9hPlxuICAgICAgICAgICAgICAgICAgICA8YSBocmVmPVwiI1wiPkRlbGV0ZTwvYT5cbiAgICAgICAgICAgICAgIDwvZGl2PlxuICAgICAgICAgICAgPC9mb290ZXI+XG4gICAgICAgICA8L2FydGljbGU+ICBcbiAgICBgLFxuICAgIHN0eWxlczogW1xuICAgICAgICBgXG4gICAgICAgICAgICAuYXV0aG9yIHtcbiAgICAgICAgICAgICAgICBkaXNwbGF5OiBpbmxpbmUtYmxvY2s7XG4gICAgICAgICAgICAgICAgZm9udC1zdHlsZTogaXRhbGljO1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgICAgICAgICB3aWR0aDogODAlO1xuICAgICAgICAgICAgfVxuICAgICAgICAgICAgLmNvbmZpZyB7XG4gICAgICAgICAgICAgICAgZGlzcGxheTogaW5saW5lLWJsb2NrO1xuICAgICAgICAgICAgICAgIHRleHQtYWxpZ246IHJpZ2h0O1xuICAgICAgICAgICAgICAgIGZvbnQtc2l6ZTogMTJweDtcbiAgICAgICAgICAgICAgICB3aWR0aDogMTklO1xuICAgICAgICAgICAgfVxuICAgICAgICBgXVxufSlcblxuZXhwb3J0IGNsYXNzIE1lc3NhZ2VDb21wb25lbnQge1xuICAgIG1lc3NhZ2U6TWVzc2FnZSA9IG5ldyBNZXNzYWdlKCdUaGlzIGlzIGNvbnRlbnQnLCBudWxsLCAnQW50aG9ueScpXG5cbn0iLCJpbXBvcnQge0NvbXBvbmVudH0gZnJvbSAnYW5ndWxhcjIvY29yZSc7XG5pbXBvcnQge01lc3NhZ2VDb21wb25lbnR9IGZyb20gXCIuL21lc3NhZ2VzL21lc3NhZ2UuY29tcG9uZW50XCI7XG5cbkBDb21wb25lbnQoe1xuICAgIHNlbGVjdG9yOiAnbXktYXBwJyxcbiAgICB0ZW1wbGF0ZTogYCAgXG4gICAgICA8ZGl2IGNsYXNzPVwicm93XCI+XG5cbiAgICAgPC9kaXY+XG4gICAgICA8ZGl2IGNsYXNzPVwicm93XCI+XG4gICAgICAgICAgICA8c2VjdGlvbiBjbGFzcz1cImNvbC1tZC04IGNvbC1tZC1vZmZzZXQtMlwiPlxuICAgICAgICAgICAgICAgIDxteS1tZXNzYWdlPjwvbXktbWVzc2FnZT5cbiAgICAgICAgICAgIDwvc2VjdGlvbj5cbiAgICA8L2Rpdj5cblxuICAgIGAsXG4gICAgZGlyZWN0aXZlczogW01lc3NhZ2VDb21wb25lbnRdXG59KVxuZXhwb3J0IGNsYXNzIEFwcENvbXBvbmVudCB7XG4gICAgbWVzc2FnZSA9IHtcbiAgICAgICAgY29udGVudDogJ0EgbWVzc2FnZScsXG4gICAgICAgIGF1dGhvcjogJ0FudGhvbnknXG4gICAgfTtcblxufSIsIi8vLzxyZWZlcmVuY2UgcGF0aD1cIi4uLy4uL25vZGVfbW9kdWxlcy9hbmd1bGFyMi90eXBpbmdzL2Jyb3dzZXIuZC50c1wiLz5cbmltcG9ydCB7Ym9vdHN0cmFwfSBmcm9tICdhbmd1bGFyMi9wbGF0Zm9ybS9icm93c2VyJztcbmltcG9ydCB7QXBwQ29tcG9uZW50fSBmcm9tIFwiLi9hcHAuY29tcG9uZW50XCI7XG5cbmJvb3RzdHJhcChBcHBDb21wb25lbnQpOyIsImV4cG9ydCBjbGFzcyBVc2VyIHtcblxuICAgIC8vIExvb2sgYXQgdGhlIHByb3BlcnRpZXMgaW4gdGhlIGNvbnN0cnVjdG9yLCBXaGF0IEkgZG8gaGVyZSBpcyBzb21ldGhpbmcgYmVhdXRpZnVsLlxuICAgIC8vIEkgaW5zdGFudGx5IGRlZmluZSB0aGUgcHJvcGVydGllcyBhcyBwdWJsaWMuIFRoaXMgd2lsIGdldCB0aGUgcHJvcGVydGllcyBhbmQgYWxzbyxcbiAgICAvLyBjcmVhdGUgYSBmaWVsZCBpbiB0aGlzIGNsYXNzIGxpa2UgdGhpcy5lbWFpbC4gTGVzcyBjb2RlLCBhbmQgZG8gdGhlIHNhbWUgdGhpbmcuIDotKVxuICAgIGNvbnN0cnVjdG9yKHB1YmxpYyBlbWFpbDogc3RyaW5nLCBwdWJsaWMgcGFzc3dvcmQ6IHN0cmluZywgcHVibGljIGZpcnN0TmFtZT86IHN0cmluZywgcHVibGljIGxhc3ROYW1lPzogc3RyaW5nKXtcbiAgICAgICAgdGhpcy5lbWFpbCA9IGVtYWlsO1xuICAgIH1cbn1cbiJdLCJzb3VyY2VSb290IjoiL3NvdXJjZS8ifQ==

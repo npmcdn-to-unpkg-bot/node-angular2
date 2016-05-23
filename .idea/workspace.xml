@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="8" />
+    <option name="CUSTOM_SCOPE_NAME" value="Project Files" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="cd0c3022-607c-4049-abfe-19ad724f99e8" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/app/message.ts" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/app/user.ts" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/app/messages/message.component.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/app/message.ts" afterPath="$PROJECT_DIR$/assets/app/messages/message.ts" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/app/user.ts" afterPath="$PROJECT_DIR$/assets/app/auth/user.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/app/app.component.ts" afterPath="$PROJECT_DIR$/assets/app/app.component.ts" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bundle.js" afterPath="$PROJECT_DIR$/bundle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/js/app/bundle.js" afterPath="$PROJECT_DIR$/public/js/app/bundle.js" />
     </list>
@@ -27,24 +33,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="false">
+      <file leaf-file-name="app.component.ts" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/app/app.component.ts">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="675">
-              <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+            <state relative-caret-position="285">
+              <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
               <folding>
-                <marker date="1463963889000" expanded="true" signature="118:300" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="173:286" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="324:1068" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="379:1057" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="438:1030" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="488:496" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="488:569" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="623:998" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="674:767" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="818:964" ph="..." />
-                <marker date="1463963889000" expanded="true" signature="1122:1273" ph="{...}" />
-                <marker date="1463963889000" expanded="true" signature="1294:1444" ph="{...}" />
+                <element signature="e#0#40#0" expanded="true" />
+                <marker date="1463999720000" expanded="true" signature="182:195" ph="..." />
+                <marker date="1463999720000" expanded="true" signature="219:350" ph="..." />
+                <marker date="1463999720000" expanded="true" signature="274:339" ph="..." />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="message.component.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/app/messages/message.component.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="480">
+              <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+              <folding>
+                <element signature="e#0#40#0" expanded="true" />
+                <marker date="1463999434000" expanded="true" signature="180:604" ph="..." />
+                <marker date="1463999434000" expanded="true" signature="217:274" ph="..." />
+                <marker date="1463999434000" expanded="true" signature="217:290" ph="..." />
+                <marker date="1463999434000" expanded="true" signature="320:584" ph="..." />
+                <marker date="1463999434000" expanded="true" signature="357:419" ph="..." />
+                <marker date="1463999434000" expanded="true" signature="456:562" ph="..." />
+                <marker date="1463999434000" expanded="true" signature="659:810" ph="{...}" />
+                <marker date="1463999434000" expanded="true" signature="831:981" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -71,7 +89,7 @@
         </entry>
       </file>
       <file leaf-file-name="message.ts" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/app/message.ts">
+        <entry file="file://$PROJECT_DIR$/assets/app/messages/message.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="210">
               <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
@@ -80,8 +98,8 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.ts" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/assets/app/user.ts">
+      <file leaf-file-name="user.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/app/auth/user.ts">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="135">
               <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
@@ -90,13 +108,27 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="boot.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/assets/app/boot.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="bundle.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bundle.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
+            <state relative-caret-position="1650">
+              <caret line="129" column="3" selection-start-line="129" selection-start-column="3" selection-end-line="129" selection-end-column="3" />
               <folding>
-                <marker date="1463964892000" expanded="true" signature="5342:5401" ph="{...}" />
+                <marker date="1463999721000" expanded="true" signature="87:570" ph="{...}" />
+                <marker date="1463999721000" expanded="true" signature="634:747" ph="{...}" />
+                <marker date="1463999721000" expanded="true" signature="6552:6562" ph="{...}" />
+                <marker date="1463999721000" expanded="true" signature="6552:6568" ph="{...}" />
+                <marker date="1463999721000" expanded="true" signature="6552:6570" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -133,10 +165,11 @@
         <option value="$PROJECT_DIR$/views/node.hbs" />
         <option value="$PROJECT_DIR$/views/index.hbs" />
         <option value="$PROJECT_DIR$/routes/app.js" />
-        <option value="$PROJECT_DIR$/assets/app/app.component.ts" />
         <option value="$PROJECT_DIR$/assets/app/message.ts" />
         <option value="$PROJECT_DIR$/bundle.js" />
         <option value="$PROJECT_DIR$/assets/app/user.ts" />
+        <option value="$PROJECT_DIR$/assets/app/messages/message.component.ts" />
+        <option value="$PROJECT_DIR$/assets/app/app.component.ts" />
       </list>
     </option>
   </component>
@@ -218,7 +251,6 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -311,8 +343,53 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-angular2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-angular2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="messages" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-angular2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node-angular2" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="assets" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="auth" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -343,6 +420,13 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="945" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="FullScreen" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/app/messages" />
+      <recent name="$PROJECT_DIR$/assets/app/auth" />
+      <recent name="$PROJECT_DIR$/assets/app" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
@@ -421,12 +505,13 @@
       <workItem from="1463866129793" duration="1689000" />
       <workItem from="1463867958764" duration="1235000" />
       <workItem from="1463949181156" duration="801000" />
-      <workItem from="1463962866721" duration="2061000" />
+      <workItem from="1463962866721" duration="2132000" />
+      <workItem from="1463997921769" duration="1665000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="12485000" />
+    <option name="totallyTimeSpent" value="14221000" />
   </component>
   <component name="TodoView" selected-index="3">
     <todo-panel id="selected-file">
@@ -441,13 +526,13 @@
     <frame x="0" y="0" width="1440" height="900" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32771084" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32771084" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="TypeScript Compiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3341346" sideWeight="0.32276252" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="npm" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17124736" sideWeight="0.5120192" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932693" sideWeight="0.49753347" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32932693" sideWeight="0.49753347" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33614457" sideWeight="0.6772375" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33533654" sideWeight="0.6772375" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Gulp" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17124736" sideWeight="0.5120192" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17124736" sideWeight="0.48798078" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32891566" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -500,21 +585,80 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/assets/app/app.component.ts">
       <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="675">
+          <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <marker date="1463999720000" expanded="true" signature="182:195" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="219:350" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="274:339" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/message.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/user.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="11" column="0" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/messages/message.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/auth/user.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bundle.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1470">
+          <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
+          <folding>
+            <marker date="1463999721000" expanded="true" signature="87:570" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="634:747" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="6552:6562" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="6552:6568" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="6552:6570" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/public/stylesheets/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="10" selection-start-line="16" selection-start-column="10" selection-end-line="16" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1463963889000" expanded="true" signature="118:300" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="173:286" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="324:1068" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="379:1057" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="438:1030" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="488:496" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="488:569" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="623:998" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="674:767" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="818:964" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="1122:1273" ph="{...}" />
-            <marker date="1463963889000" expanded="true" signature="1294:1444" ph="{...}" />
+            <element signature="e#0#40#0" expanded="true" />
+            <marker date="1463999720000" expanded="true" signature="182:195" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="219:350" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="274:339" ph="..." />
           </folding>
         </state>
       </provider>
@@ -524,18 +668,10 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1463963889000" expanded="true" signature="118:300" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="173:286" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="324:1068" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="379:1057" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="438:1030" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="488:496" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="488:569" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="623:998" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="674:767" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="818:964" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="1122:1273" ph="{...}" />
-            <marker date="1463963889000" expanded="true" signature="1294:1444" ph="{...}" />
+            <element signature="e#0#40#0" expanded="true" />
+            <marker date="1463999720000" expanded="true" signature="182:195" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="219:350" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="274:339" ph="..." />
           </folding>
         </state>
       </provider>
@@ -683,14 +819,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/views/node.hbs" />
-    <entry file="file://$PROJECT_DIR$/assets/app/boot.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/bin/www">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
@@ -744,31 +872,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bundle.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="98" column="17" selection-start-line="98" selection-start-column="17" selection-end-line="98" selection-end-column="17" />
+        <state relative-caret-position="1650">
+          <caret line="129" column="3" selection-start-line="129" selection-start-column="3" selection-end-line="129" selection-end-column="3" />
           <folding>
-            <marker date="1463964892000" expanded="true" signature="5342:5401" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/app.component.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="675">
-          <caret line="45" column="27" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
-          <folding>
-            <marker date="1463963889000" expanded="true" signature="118:300" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="173:286" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="324:1068" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="379:1057" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="438:1030" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="488:496" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="488:569" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="623:998" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="674:767" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="818:964" ph="..." />
-            <marker date="1463963889000" expanded="true" signature="1122:1273" ph="{...}" />
-            <marker date="1463963889000" expanded="true" signature="1294:1444" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="87:570" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="634:747" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="6552:6562" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="6552:6568" ph="{...}" />
+            <marker date="1463999721000" expanded="true" signature="6552:6570" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -781,7 +892,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/message.ts">
+    <entry file="file://$PROJECT_DIR$/assets/app/messages/message.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
           <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
@@ -797,11 +908,50 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/app/user.ts">
+    <entry file="file://$PROJECT_DIR$/assets/app/auth/user.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="9" column="0" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/boot.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/messages/message.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="480">
+          <caret line="32" column="34" selection-start-line="32" selection-start-column="34" selection-end-line="32" selection-end-column="34" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <marker date="1463999434000" expanded="true" signature="180:604" ph="..." />
+            <marker date="1463999434000" expanded="true" signature="217:274" ph="..." />
+            <marker date="1463999434000" expanded="true" signature="217:290" ph="..." />
+            <marker date="1463999434000" expanded="true" signature="320:584" ph="..." />
+            <marker date="1463999434000" expanded="true" signature="357:419" ph="..." />
+            <marker date="1463999434000" expanded="true" signature="456:562" ph="..." />
+            <marker date="1463999434000" expanded="true" signature="659:810" ph="{...}" />
+            <marker date="1463999434000" expanded="true" signature="831:981" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/assets/app/app.component.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="15" selection-start-line="19" selection-start-column="15" selection-end-line="19" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#40#0" expanded="true" />
+            <marker date="1463999720000" expanded="true" signature="182:195" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="219:350" ph="..." />
+            <marker date="1463999720000" expanded="true" signature="274:339" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
