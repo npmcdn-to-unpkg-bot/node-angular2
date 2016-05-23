@@ -176,14 +176,14 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                 function MessageInputComponent(_messageService) {
                     this._messageService = _messageService;
                 }
-                MessageInputComponent.prototype.onCreate = function (content) {
-                    var message = new message_3.Message(content, null, 'dummy');
+                MessageInputComponent.prototype.onSubmit = function (form) {
+                    var message = new message_3.Message(form.content, null, 'dummy');
                     this._messageService.addMessage(message);
                 };
                 MessageInputComponent = __decorate([
                     core_3.Component({
                         selector: 'my-message-input',
-                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input type=\"text\" class=\"form-control\" id=\"content\" #input>                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onCreate(input.value)\">Send Message</button>\n       </section>\n    "
+                        template: "\n     <section class=\"col-md-8 col-md-offset-2\">\n        <form (ngSubmit)=\"onSubmit(f.value)\" #f=\"ngForm\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input ngControl=\"content\" type=\"text\" class=\"form-control\" id=\"content\" #input>                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\">Send Message</button>\n        </form>\n     </section>\n    "
                     }), 
                     __metadata('design:paramtypes', [message_service_3.MessageService])
                 ], MessageInputComponent);
