@@ -94,12 +94,16 @@ System.register("app.component", ['angular2/core', "messages/message.component",
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
-                    this.message = new message_2.Message('Brand new message', null, 'Anthony');
+                    this.messages = [
+                        new message_2.Message('Brand new message', null, 'Anthony'),
+                        new message_2.Message('I am J.J. Winters', null, 'Jake'),
+                        new message_2.Message('Hi, am Jesus', null, 'Jesus')
+                    ];
                 }
                 AppComponent = __decorate([
                     core_2.Component({
                         selector: 'my-app',
-                        template: "  \n      <div class=\"row\">\n\n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message [message]=\"message\"></my-message>\n            </section>\n    </div>\n\n    ",
+                        template: "  \n      <div class=\"row\">\n\n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>                \n            </section>\n    </div>\n\n    ",
                         directives: [message_component_1.MessageComponent]
                     }), 
                     __metadata('design:paramtypes', [])

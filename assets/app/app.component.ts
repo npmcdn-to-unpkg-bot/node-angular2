@@ -10,7 +10,7 @@ import {Message} from "./messages/message";
      </div>
       <div class="row">
             <section class="col-md-8 col-md-offset-2">
-                <my-message [message]="message"></my-message>
+                <my-message *ngFor="#message of messages" [message]="message"  (editClicked)="message.content = $event"></my-message>                
             </section>
     </div>
 
@@ -18,5 +18,9 @@ import {Message} from "./messages/message";
     directives: [MessageComponent]
 })
 export class AppComponent {
-    message: Message = new Message('Brand new message',null, 'Anthony');
+    messages: Message[] = [
+        new Message('Brand new message',null, 'Anthony'),
+        new Message('I am J.J. Winters',null, 'Jake'),
+        new Message('Hi, am Jesus',null, 'Jesus')
+    ];
 }
