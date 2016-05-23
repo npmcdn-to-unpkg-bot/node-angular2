@@ -75,48 +75,9 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
         }
     }
 });
-System.register("messages/message-list.component", ['angular2/core', "messages/message.component", "messages/message"], function(exports_3, context_3) {
+System.register("messages/message.service", [], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    var core_2, message_component_1, message_2;
-    var MessageListComponent;
-    return {
-        setters:[
-            function (core_2_1) {
-                core_2 = core_2_1;
-            },
-            function (message_component_1_1) {
-                message_component_1 = message_component_1_1;
-            },
-            function (message_2_1) {
-                message_2 = message_2_1;
-            }],
-        execute: function() {
-            MessageListComponent = (function () {
-                function MessageListComponent() {
-                    this.messages = [
-                        new message_2.Message('Brand new message', null, 'Anthony'),
-                        new message_2.Message('I am J.J. Winters', null, 'Jake'),
-                        new message_2.Message('Hi, am Jesus', null, 'Jesus')
-                    ];
-                }
-                MessageListComponent = __decorate([
-                    core_2.Component({
-                        selector: 'my-message-list',
-                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n           <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>         \n           <!-- The underlying code is for beta17 > rc*  release -->\n           <!-- <my-message *ngFor=\"let message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message> -->\n        </section>              \n    ",
-                        directives: [message_component_1.MessageComponent]
-                    }), 
-                    __metadata('design:paramtypes', [])
-                ], MessageListComponent);
-                return MessageListComponent;
-            }());
-            exports_3("MessageListComponent", MessageListComponent);
-        }
-    }
-});
-System.register("messages/message.service", [], function(exports_4, context_4) {
-    "use strict";
-    var __moduleName = context_4 && context_4.id;
     var MessageService;
     return {
         setters:[],
@@ -137,25 +98,63 @@ System.register("messages/message.service", [], function(exports_4, context_4) {
                 };
                 return MessageService;
             }());
-            exports_4("MessageService", MessageService);
+            exports_3("MessageService", MessageService);
+        }
+    }
+});
+System.register("messages/message-list.component", ['angular2/core', "messages/message.component", "messages/message.service"], function(exports_4, context_4) {
+    "use strict";
+    var __moduleName = context_4 && context_4.id;
+    var core_2, message_component_1, message_service_1;
+    var MessageListComponent;
+    return {
+        setters:[
+            function (core_2_1) {
+                core_2 = core_2_1;
+            },
+            function (message_component_1_1) {
+                message_component_1 = message_component_1_1;
+            },
+            function (message_service_1_1) {
+                message_service_1 = message_service_1_1;
+            }],
+        execute: function() {
+            MessageListComponent = (function () {
+                function MessageListComponent(_messageService) {
+                    this._messageService = _messageService;
+                }
+                MessageListComponent.prototype.ngOnInit = function () {
+                    this.messages = this._messageService.getMessages();
+                };
+                MessageListComponent = __decorate([
+                    core_2.Component({
+                        selector: 'my-message-list',
+                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n           <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>         \n           <!-- The underlying code is for beta17 > rc*  release -->\n           <!-- <my-message *ngFor=\"let message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message> -->\n        </section>              \n    ",
+                        directives: [message_component_1.MessageComponent]
+                    }), 
+                    __metadata('design:paramtypes', [message_service_1.MessageService])
+                ], MessageListComponent);
+                return MessageListComponent;
+            }());
+            exports_4("MessageListComponent", MessageListComponent);
         }
     }
 });
 System.register("messages/message-input.component", ['angular2/core', "messages/message", "messages/message.service"], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
-    var core_3, message_3, message_service_1;
+    var core_3, message_2, message_service_2;
     var MessageInputComponent;
     return {
         setters:[
             function (core_3_1) {
                 core_3 = core_3_1;
             },
-            function (message_3_1) {
-                message_3 = message_3_1;
+            function (message_2_1) {
+                message_2 = message_2_1;
             },
-            function (message_service_1_1) {
-                message_service_1 = message_service_1_1;
+            function (message_service_2_1) {
+                message_service_2 = message_service_2_1;
             }],
         execute: function() {
             MessageInputComponent = (function () {
@@ -163,16 +162,15 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                     this._messageService = _messageService;
                 }
                 MessageInputComponent.prototype.onCreate = function (content) {
-                    var message = new message_3.Message(content, null, 'dummy');
+                    var message = new message_2.Message(content, null, 'dummy');
                     this._messageService.addMessage(message);
                 };
                 MessageInputComponent = __decorate([
                     core_3.Component({
                         selector: 'my-message-input',
-                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input type=\"text\" class=\"form-control\" id=\"content\" #input>                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onCreate(input.value)\">Send Message</button>\n       </section>\n    ",
-                        providers: [message_service_1.MessageService]
+                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input type=\"text\" class=\"form-control\" id=\"content\" #input>                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\" (click)=\"onCreate(input.value)\">Send Message</button>\n       </section>\n    "
                     }), 
-                    __metadata('design:paramtypes', [message_service_1.MessageService])
+                    __metadata('design:paramtypes', [message_service_2.MessageService])
                 ], MessageInputComponent);
                 return MessageInputComponent;
             }());
@@ -214,10 +212,10 @@ System.register("app.component", ['angular2/core', "messages/message-list.compon
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component"], function(exports_7, context_7) {
+System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service"], function(exports_7, context_7) {
     "use strict";
     var __moduleName = context_7 && context_7.id;
-    var browser_1, app_component_1;
+    var browser_1, app_component_1, message_service_3;
     return {
         setters:[
             function (browser_1_1) {
@@ -225,9 +223,12 @@ System.register("boot", ['angular2/platform/browser', "app.component"], function
             },
             function (app_component_1_1) {
                 app_component_1 = app_component_1_1;
+            },
+            function (message_service_3_1) {
+                message_service_3 = message_service_3_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent);
+            browser_1.bootstrap(app_component_1.AppComponent, [message_service_3.MessageService]);
         }
     }
 });
