@@ -57,4 +57,50 @@ System.register("boot", ['angular2/platform/browser', "app.component"], function
         }
     }
 });
+System.register("message", [], function(exports_3, context_3) {
+    "use strict";
+    var __moduleName = context_3 && context_3.id;
+    var Message;
+    return {
+        setters:[],
+        execute: function() {
+            Message = (function () {
+                // The ? behind the parameters in the constructor means,
+                // that the values don't need to be available or presented.
+                function Message(content, messageId, username, userId) {
+                    this.content = content;
+                    this.messageId = messageId;
+                    this.username = username;
+                    this.userId = userId;
+                }
+                return Message;
+            }());
+            exports_3("Message", Message);
+        }
+    }
+});
+System.register("user", [], function(exports_4, context_4) {
+    "use strict";
+    var __moduleName = context_4 && context_4.id;
+    var User;
+    return {
+        setters:[],
+        execute: function() {
+            User = (function () {
+                // Look at the properties in the constructor, What I do here is something beautiful.
+                // I instantly define the properties as public. This wil get the properties and also,
+                // create a field in this class like this.email. Less code, and do the same thing. :-)
+                function User(email, password, firstName, lastName) {
+                    this.email = email;
+                    this.password = password;
+                    this.firstName = firstName;
+                    this.lastName = lastName;
+                    this.email = email;
+                }
+                return User;
+            }());
+            exports_4("User", User);
+        }
+    }
+});
 //# sourceMappingURL=bundle.js.map
