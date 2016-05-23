@@ -13,7 +13,7 @@ export class MessageService{
     }
 
     editMessage(message: Message) {
-        this.messages[this.messages.indexOf(message)] = new Message('Edited', null, 'Dummy');
+        this.messages[this.messages.indexOf(message)] = new Message('Edited', null, 'System');
     }
 
     deleteMessage(message: Message) {

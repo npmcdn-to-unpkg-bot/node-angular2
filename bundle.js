@@ -52,7 +52,7 @@ System.register("messages/message.service", ["messages/message"], function(expor
                     return this.messages;
                 };
                 MessageService.prototype.editMessage = function (message) {
-                    this.messages[this.messages.indexOf(message)] = new message_1.Message('Edited', null, 'Dummy');
+                    this.messages[this.messages.indexOf(message)] = new message_1.Message('Edited', null, 'System');
                 };
                 MessageService.prototype.deleteMessage = function (message) {
                     this.messages.splice(this.messages.indexOf(message), 1);
@@ -193,11 +193,11 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
         }
     }
 });
-System.register("app.component", ['angular2/core', "messages/message-list.component", "messages/message-input.component"], function(exports_6, context_6) {
+System.register("messages/messages.component", ["angular2/core", "messages/message-list.component", "messages/message-input.component"], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
     var core_4, message_list_component_1, message_input_component_1;
-    var AppComponent;
+    var MessagesComponent;
     return {
         setters:[
             function (core_4_1) {
@@ -210,27 +210,130 @@ System.register("app.component", ['angular2/core', "messages/message-list.compon
                 message_input_component_1 = message_input_component_1_1;
             }],
         execute: function() {
+            MessagesComponent = (function () {
+                function MessagesComponent() {
+                }
+                MessagesComponent = __decorate([
+                    core_4.Component({
+                        selector: 'my-messages',
+                        template: "\n      <div class=\"row spacing\">\n           <my-message-input></my-message-input>\n     </div>\n      <div class=\"row spacing\">\n           <my-message-list></my-message-list>\n    </div>\n\n    ",
+                        directives: [message_list_component_1.MessageListComponent, message_input_component_1.MessageInputComponent]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], MessagesComponent);
+                return MessagesComponent;
+            }());
+            exports_6("MessagesComponent", MessagesComponent);
+        }
+    }
+});
+System.register("auth/authentication.component", ['angular2/core'], function(exports_7, context_7) {
+    "use strict";
+    var __moduleName = context_7 && context_7.id;
+    var core_5;
+    var AuthenticationComponent;
+    return {
+        setters:[
+            function (core_5_1) {
+                core_5 = core_5_1;
+            }],
+        execute: function() {
+            AuthenticationComponent = (function () {
+                function AuthenticationComponent() {
+                }
+                AuthenticationComponent = __decorate([
+                    core_5.Component({
+                        selector: 'my-auth',
+                        template: "\n        <h1>Auth</h1>\n    "
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], AuthenticationComponent);
+                return AuthenticationComponent;
+            }());
+            exports_7("AuthenticationComponent", AuthenticationComponent);
+        }
+    }
+});
+System.register("header.component", ['angular2/core', "angular2/router"], function(exports_8, context_8) {
+    "use strict";
+    var __moduleName = context_8 && context_8.id;
+    var core_6, router_1;
+    var HeaderComponent;
+    return {
+        setters:[
+            function (core_6_1) {
+                core_6 = core_6_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            }],
+        execute: function() {
+            HeaderComponent = (function () {
+                function HeaderComponent() {
+                }
+                HeaderComponent = __decorate([
+                    core_6.Component({
+                        selector: 'my-header',
+                        template: "\n        <header class=\"row\">\n             <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-pills\">\n                    <li><a [routerLink]=\"['Messenger']\">Messenger</a></li>\n                    <li><a [routerLink]=\"['Auth']\">Authentication</a></li>\n                </ul>\n              </nav>\n        </header>\n     ",
+                        directives: [router_1.ROUTER_DIRECTIVES],
+                        styles: ["\n        header {\n           margin-bottom: 20px;\n        }\n        \n        ul {\n           text-align: center;\n        }\n        \n        li {\n            float: none;\n            display: inline-block;\n        }\n    "]
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], HeaderComponent);
+                return HeaderComponent;
+            }());
+            exports_8("HeaderComponent", HeaderComponent);
+        }
+    }
+});
+System.register("app.component", ['angular2/core', "angular2/router", "messages/messages.component", "auth/authentication.component", "header.component"], function(exports_9, context_9) {
+    "use strict";
+    var __moduleName = context_9 && context_9.id;
+    var core_7, router_2, messages_component_1, authentication_component_1, header_component_1;
+    var AppComponent;
+    return {
+        setters:[
+            function (core_7_1) {
+                core_7 = core_7_1;
+            },
+            function (router_2_1) {
+                router_2 = router_2_1;
+            },
+            function (messages_component_1_1) {
+                messages_component_1 = messages_component_1_1;
+            },
+            function (authentication_component_1_1) {
+                authentication_component_1 = authentication_component_1_1;
+            },
+            function (header_component_1_1) {
+                header_component_1 = header_component_1_1;
+            }],
+        execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
                 }
                 AppComponent = __decorate([
-                    core_4.Component({
+                    core_7.Component({
                         selector: 'my-app',
-                        template: "  \n      <div class=\"row spacing\">\n           <my-message-input></my-message-input>\n     </div>\n      <div class=\"row spacing\">\n           <my-message-list></my-message-list>\n    </div>\n\n    ",
-                        directives: [message_list_component_1.MessageListComponent, message_input_component_1.MessageInputComponent]
-                    }), 
+                        template: "  \n           <div class=\"container\">\n                <my-header></my-header>\n                <router-outlet></router-outlet>\n            </div>\n    ",
+                        directives: [router_2.ROUTER_DIRECTIVES, header_component_1.HeaderComponent]
+                    }),
+                    router_2.RouteConfig([
+                        { path: '/', name: 'Messenger', component: messages_component_1.MessagesComponent, useAsDefault: true },
+                        { path: '/auth', name: 'Auth', component: authentication_component_1.AuthenticationComponent }
+                    ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
             }());
-            exports_6("AppComponent", AppComponent);
+            exports_9("AppComponent", AppComponent);
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service"], function(exports_7, context_7) {
+System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router"], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
-    var browser_1, app_component_1, message_service_4;
+    var __moduleName = context_10 && context_10.id;
+    var browser_1, app_component_1, message_service_4, router_3;
     return {
         setters:[
             function (browser_1_1) {
@@ -241,15 +344,18 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
             },
             function (message_service_4_1) {
                 message_service_4 = message_service_4_1;
+            },
+            function (router_3_1) {
+                router_3 = router_3_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService]);
+            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, router_3.ROUTER_PROVIDERS]);
         }
     }
 });
-System.register("auth/user", [], function(exports_8, context_8) {
+System.register("auth/user", [], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
+    var __moduleName = context_11 && context_11.id;
     var User;
     return {
         setters:[],
@@ -267,7 +373,7 @@ System.register("auth/user", [], function(exports_8, context_8) {
                 }
                 return User;
             }());
-            exports_8("User", User);
+            exports_11("User", User);
         }
     }
 });
