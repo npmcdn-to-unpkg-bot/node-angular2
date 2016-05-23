@@ -103,7 +103,7 @@ System.register("app.component", ['angular2/core', "messages/message.component",
                 AppComponent = __decorate([
                     core_2.Component({
                         selector: 'my-app',
-                        template: "  \n      <div class=\"row\">\n\n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>                \n            </section>\n    </div>\n\n    ",
+                        template: "  \n      <div class=\"row\">\n\n     </div>\n      <div class=\"row\">\n            <section class=\"col-md-8 col-md-offset-2\">\n                <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>         \n                <!--Code here beneath is for RC changes-->\n                <!--<my-message *ngFor=\"let message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>                -->\n            </section>\n    </div>\n\n    ",
                         directives: [message_component_1.MessageComponent]
                     }), 
                     __metadata('design:paramtypes', [])

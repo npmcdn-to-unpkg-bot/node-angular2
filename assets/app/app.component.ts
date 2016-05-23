@@ -10,7 +10,9 @@ import {Message} from "./messages/message";
      </div>
       <div class="row">
             <section class="col-md-8 col-md-offset-2">
-                <my-message *ngFor="#message of messages" [message]="message"  (editClicked)="message.content = $event"></my-message>                
+                <my-message *ngFor="#message of messages" [message]="message"  (editClicked)="message.content = $event"></my-message>         
+                <!--Code here beneath is for RC changes-->
+                <!--<my-message *ngFor="let message of messages" [message]="message"  (editClicked)="message.content = $event"></my-message>                -->
             </section>
     </div>
 
