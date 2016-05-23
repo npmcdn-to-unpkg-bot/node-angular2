@@ -46,10 +46,11 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
             MessageComponent = (function () {
                 function MessageComponent() {
                     this.editClicked = new core_1.EventEmitter();
-                    this.color = 'red';
+                    this.show = true;
                 }
                 MessageComponent.prototype.onClick = function () {
                     this.editClicked.emit('Changed');
+                    console.log('Edit button clicked!');
                 };
                 __decorate([
                     core_1.Input(), 
@@ -62,7 +63,7 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
                 MessageComponent = __decorate([
                     core_1.Component({
                         selector: 'my-message',
-                        template: "\n         <article class=\"panel panel-default\" [ngStyle]=\"{'background-color': color}\" (mouseenter)=\"color = 'red'\" (mouseleave)=\"color = 'white'\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a (click)=\"onClick()\">Edit</a>\n                    <a href=\"#\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
+                        template: "\n         <article class=\"panel panel-default\" *ngIf=\"show\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a (click)=\"onClick()\">Edit</a>\n                    <a href=\"#\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
                         styles: [
                             "\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
                     }), 

@@ -5,7 +5,7 @@ import {Message} from "./message";
 @Component({
     selector: 'my-message',
     template: `
-         <article class="panel panel-default" [ngStyle]="{'background-color': color}" (mouseenter)="color = 'red'" (mouseleave)="color = 'white'">
+         <article class="panel panel-default" *ngIf="show">
             <div class="panel-body">
                 {{ message.content }}
             </div>    
@@ -40,11 +40,12 @@ import {Message} from "./message";
 export class MessageComponent {
    @Input() message:Message;
    @Output() editClicked = new EventEmitter<string>();
-    color = 'red';
+    show = true;
 
 
     onClick() {
         this.editClicked.emit('Changed');
+        console.log('Edit button clicked!');
     }
 
 }
