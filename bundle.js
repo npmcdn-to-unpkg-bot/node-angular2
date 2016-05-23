@@ -171,7 +171,7 @@ System.register("app.component", ['angular2/core', "messages/message-list.compon
                 AppComponent = __decorate([
                     core_4.Component({
                         selector: 'my-app',
-                        template: "  \n      <div class=\"row\">\n           <my-message-input></my-message-input><br><br>\n     </div>\n      <div class=\"row\">\n           <my-message-list></my-message-list>\n    </div>\n\n    ",
+                        template: "  \n      <div class=\"row spacing\">\n           <my-message-input></my-message-input>\n     </div>\n      <div class=\"row spacing\">\n           <my-message-list></my-message-list>\n    </div>\n\n    ",
                         directives: [message_list_component_1.MessageListComponent, message_input_component_1.MessageInputComponent]
                     }), 
                     __metadata('design:paramtypes', [])
