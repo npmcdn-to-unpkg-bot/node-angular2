@@ -7,7 +7,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-System.register("messages/message", [], function(exports_1, context_1) {
+System.register("assets/app/messages/message", [], function(exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
     var Message;
@@ -29,7 +29,7 @@ System.register("messages/message", [], function(exports_1, context_1) {
         }
     }
 });
-System.register("messages/message.service", ["messages/message"], function(exports_2, context_2) {
+System.register("assets/app/messages/message.service", ["assets/app/messages/message"], function(exports_2, context_2) {
     "use strict";
     var __moduleName = context_2 && context_2.id;
     var message_1;
@@ -63,7 +63,7 @@ System.register("messages/message.service", ["messages/message"], function(expor
         }
     }
 });
-System.register("messages/message.component", ["angular2/core", "messages/message", "messages/message.service"], function(exports_3, context_3) {
+System.register("assets/app/messages/message.component", ["angular2/core", "assets/app/messages/message", "assets/app/messages/message.service"], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
     var core_1, message_2, message_service_1;
@@ -117,7 +117,7 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
         }
     }
 });
-System.register("messages/message-list.component", ['angular2/core', "messages/message.component", "messages/message.service"], function(exports_4, context_4) {
+System.register("assets/app/messages/message-list.component", ['angular2/core', "assets/app/messages/message.component", "assets/app/messages/message.service"], function(exports_4, context_4) {
     "use strict";
     var __moduleName = context_4 && context_4.id;
     var core_2, message_component_1, message_service_2;
@@ -155,7 +155,7 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
         }
     }
 });
-System.register("messages/message-input.component", ['angular2/core', "messages/message", "messages/message.service"], function(exports_5, context_5) {
+System.register("assets/app/messages/message-input.component", ['angular2/core', "assets/app/messages/message", "assets/app/messages/message.service"], function(exports_5, context_5) {
     "use strict";
     var __moduleName = context_5 && context_5.id;
     var core_3, message_3, message_service_3;
@@ -193,7 +193,7 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
         }
     }
 });
-System.register("messages/messages.component", ["angular2/core", "messages/message-list.component", "messages/message-input.component"], function(exports_6, context_6) {
+System.register("assets/app/messages/messages.component", ["angular2/core", "assets/app/messages/message-list.component", "assets/app/messages/message-input.component"], function(exports_6, context_6) {
     "use strict";
     var __moduleName = context_6 && context_6.id;
     var core_4, message_list_component_1, message_input_component_1;
@@ -227,7 +227,7 @@ System.register("messages/messages.component", ["angular2/core", "messages/messa
         }
     }
 });
-System.register("auth/signup.component", ['angular2/core', "angular2/common"], function(exports_7, context_7) {
+System.register("assets/app/auth/signup.component", ['angular2/core', "angular2/common"], function(exports_7, context_7) {
     "use strict";
     var __moduleName = context_7 && context_7.id;
     var core_5, common_1;
@@ -278,7 +278,7 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common"], f
         }
     }
 });
-System.register("auth/signin.component", ['angular2/core', "angular2/common"], function(exports_8, context_8) {
+System.register("assets/app/auth/signin.component", ['angular2/core', "angular2/common"], function(exports_8, context_8) {
     "use strict";
     var __moduleName = context_8 && context_8.id;
     var core_6, common_2;
@@ -327,7 +327,7 @@ System.register("auth/signin.component", ['angular2/core', "angular2/common"], f
         }
     }
 });
-System.register("auth/logout.component", ['angular2/core'], function(exports_9, context_9) {
+System.register("assets/app/auth/logout.component", ['angular2/core'], function(exports_9, context_9) {
     "use strict";
     var __moduleName = context_9 && context_9.id;
     var core_7;
@@ -356,7 +356,7 @@ System.register("auth/logout.component", ['angular2/core'], function(exports_9, 
         }
     }
 });
-System.register("auth/authentication.component", ['angular2/core', "auth/signup.component", "angular2/router", "auth/signin.component", "auth/logout.component"], function(exports_10, context_10) {
+System.register("assets/app/auth/authentication.component", ['angular2/core', "assets/app/auth/signup.component", "angular2/router", "assets/app/auth/signin.component", "assets/app/auth/logout.component"], function(exports_10, context_10) {
     "use strict";
     var __moduleName = context_10 && context_10.id;
     var core_8, signup_component_1, router_1, signin_component_1, logout_component_1;
@@ -387,10 +387,10 @@ System.register("auth/authentication.component", ['angular2/core', "auth/signup.
                         selector: 'my-auth',
                         template: "\n        <header class=\"row spacing\">\n            <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-tabs\">\n                    <li><a [routerLink]=\"['Signin']\">Signin</a></li>\n                    <li><a [routerLink]=\"['Signup']\">Signup</a></li>\n                    <li><a [routerLink]=\"['Logout']\">Logout</a></li>\n                </ul>        \n            </nav>\n        </header>\n        <div class=\"row spacing\">\n            <router-outlet></router-outlet>\n        \n        </div>\n    ",
                         directives: [router_1.ROUTER_DIRECTIVES, signup_component_1.SignupComponent],
-                        styles: ["\n        .router-link-active {\n            cursor: default;\n            color: ghostwhite;\n            background-color: lightslategrey;\n            border: 1px solid #ddd;\n            border-bottom-color: transparent;\n        }\n    "]
+                        styles: ["\n        .router-link-active {\n            cursor: default;\n            color: ghostwhite;\n            background-color: lightslategrey;\n            border: 1px solid #ddd;\n            border-bottom-color: dodgerblue;\n        }\n    "]
                     }),
                     router_1.RouteConfig([
-                        { path: '/signin', name: 'Signin', component: signin_component_1.SigninComponent },
+                        { path: '/signin', name: 'Signin', component: signin_component_1.SigninComponent, useAsDefault: true },
                         { path: '/signup', name: 'Signup', component: signup_component_1.SignupComponent },
                         { path: '/logout', name: 'Logout', component: logout_component_1.LogoutComponent }
                     ]), 
@@ -402,7 +402,7 @@ System.register("auth/authentication.component", ['angular2/core', "auth/signup.
         }
     }
 });
-System.register("header.component", ['angular2/core', "angular2/router"], function(exports_11, context_11) {
+System.register("assets/app/header.component", ['angular2/core', "angular2/router"], function(exports_11, context_11) {
     "use strict";
     var __moduleName = context_11 && context_11.id;
     var core_9, router_2;
@@ -422,7 +422,7 @@ System.register("header.component", ['angular2/core', "angular2/router"], functi
                 HeaderComponent = __decorate([
                     core_9.Component({
                         selector: 'my-header',
-                        template: "\n        <header class=\"row\">\n             <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-pills\">\n                    <li><a [routerLink]=\"['Messenger']\">Messenger</a></li>\n                    <li><a [routerLink]=\"['Auth']\">Authentication</a></li>\n                </ul>\n              </nav>\n        </header>\n     ",
+                        template: "\n        <header class=\"row\">\n             <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-pills\">\n                    <li><a [routerLink]=\"['Messenger']\">Messages</a></li>\n                    <li><a [routerLink]=\"['Auth']\">Authentication</a></li>\n                </ul>\n              </nav>\n        </header>\n     ",
                         directives: [router_2.ROUTER_DIRECTIVES],
                         styles: ["\n        header {\n           margin-bottom: 20px;\n        }\n        \n        ul {\n           text-align: center;\n        }\n        \n        li {\n            float: none;\n            display: inline-block;\n        }\n    "]
                     }), 
@@ -434,7 +434,7 @@ System.register("header.component", ['angular2/core', "angular2/router"], functi
         }
     }
 });
-System.register("app.component", ['angular2/core', "angular2/router", "messages/messages.component", "auth/authentication.component", "header.component"], function(exports_12, context_12) {
+System.register("assets/app/app.component", ['angular2/core', "angular2/router", "assets/app/messages/messages.component", "assets/app/auth/authentication.component", "assets/app/header.component"], function(exports_12, context_12) {
     "use strict";
     var __moduleName = context_12 && context_12.id;
     var core_10, router_3, messages_component_1, authentication_component_1, header_component_1;
@@ -478,7 +478,7 @@ System.register("app.component", ['angular2/core', "angular2/router", "messages/
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core"], function(exports_13, context_13) {
+System.register("assets/app/boot", ['angular2/platform/browser', "assets/app/app.component", "assets/app/messages/message.service", "angular2/router", "angular2/core"], function(exports_13, context_13) {
     "use strict";
     var __moduleName = context_13 && context_13.id;
     var browser_1, app_component_1, message_service_4, router_4, core_11;
@@ -507,7 +507,7 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
 /**
  * Created by Tony on 24-05-16.
  */
-System.register("auth/user", [], function(exports_14, context_14) {
+System.register("assets/app/auth/user", [], function(exports_14, context_14) {
     "use strict";
     var __moduleName = context_14 && context_14.id;
     var User;
@@ -531,4 +531,7 @@ System.register("auth/user", [], function(exports_14, context_14) {
         }
     }
 });
+/**
+ * Created by Tony on 24-05-16.
+ */
 //# sourceMappingURL=bundle.js.map

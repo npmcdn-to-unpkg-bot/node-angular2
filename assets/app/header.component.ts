@@ -7,7 +7,7 @@ import {ROUTER_DIRECTIVES} from "angular2/router";
         <header class="row">
              <nav class="col-md-8 col-md-offset-2">
                 <ul class="nav nav-pills">
-                    <li><a [routerLink]="['Messenger']">Messenger</a></li>
+                    <li><a [routerLink]="['Messenger']">Messages</a></li>
                     <li><a [routerLink]="['Auth']">Authentication</a></li>
                 </ul>
               </nav>

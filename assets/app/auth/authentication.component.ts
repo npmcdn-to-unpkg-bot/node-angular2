@@ -28,13 +28,13 @@ import {LogoutComponent} from "./logout.component";
             color: ghostwhite;
             background-color: lightslategrey;
             border: 1px solid #ddd;
-            border-bottom-color: transparent;
+            border-bottom-color: dodgerblue;
         }
     `]
 })
 
 @RouteConfig([
-    {path: '/signin', name: 'Signin', component: SigninComponent},
+    {path: '/signin', name: 'Signin', component: SigninComponent, useAsDefault: true},
     {path: '/signup', name: 'Signup', component: SignupComponent},
     {path: '/logout', name: 'Logout', component: LogoutComponent}
 ])
