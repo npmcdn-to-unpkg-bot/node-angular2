@@ -1,5 +1,5 @@
 import {Component, OnInit} from 'angular2/core';
-import {FormBuilder, ControlGroup, Validators} from "angular2/common";
+import {FormBuilder, ControlGroup, Validators, Control} from "angular2/common";
 
 @Component({
     selector: 'my-signup',
@@ -28,7 +28,7 @@ import {FormBuilder, ControlGroup, Validators} from "angular2/common";
     `
 })
 
-export class SignupComponent implements  OnInit{
+export class SignupComponent implements OnInit {
     myForm: ControlGroup;
 
     constructor(private _fb:FormBuilder) {}
@@ -38,12 +38,24 @@ export class SignupComponent implements  OnInit{
     }
 
     ngOnInit() {
+        console.log('The entered mail address validation passed: ' + this.isEmail.toString());
+
         this.myForm = this._fb.group({
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
-            email: ['', Validators.required],
+            email: ['', Validators.compose([
+                Validators.required,
+                this.isEmail
+            ])],
             password: ['', Validators.required]
         });
+    }
+
+    private isEmail(control: Control): {[s: string]: boolean} {
+        if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+
+            return {invalidMail: true};
+        }
     }
 
 }

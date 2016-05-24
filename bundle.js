@@ -249,12 +249,21 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common"], f
                     console.log(this.myForm.value);
                 };
                 SignupComponent.prototype.ngOnInit = function () {
+                    console.log('The entered mail address validation passed: ' + this.isEmail.toString());
                     this.myForm = this._fb.group({
                         firstName: ['', common_1.Validators.required],
                         lastName: ['', common_1.Validators.required],
-                        email: ['', common_1.Validators.required],
+                        email: ['', common_1.Validators.compose([
+                                common_1.Validators.required,
+                                this.isEmail
+                            ])],
                         password: ['', common_1.Validators.required]
                     });
+                };
+                SignupComponent.prototype.isEmail = function (control) {
+                    if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+                        return { invalidMail: true };
+                    }
                 };
                 SignupComponent = __decorate([
                     core_5.Component({
