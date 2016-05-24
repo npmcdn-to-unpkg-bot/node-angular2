@@ -278,81 +278,174 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common"], f
         }
     }
 });
-System.register("auth/authentication.component", ['angular2/core', "auth/signup.component"], function(exports_8, context_8) {
+System.register("auth/signin.component", ['angular2/core', "angular2/common"], function(exports_8, context_8) {
     "use strict";
     var __moduleName = context_8 && context_8.id;
-    var core_6, signup_component_1;
-    var AuthenticationComponent;
+    var core_6, common_2;
+    var SigninComponent;
     return {
         setters:[
             function (core_6_1) {
                 core_6 = core_6_1;
             },
+            function (common_2_1) {
+                common_2 = common_2_1;
+            }],
+        execute: function() {
+            SigninComponent = (function () {
+                function SigninComponent(_fb) {
+                    this._fb = _fb;
+                }
+                SigninComponent.prototype.onSubmit = function () {
+                    console.log(this.myForm.value);
+                };
+                SigninComponent.prototype.ngOnInit = function () {
+                    console.log('The entered mail address validation passed: ' + this.isEmail.toString());
+                    this.myForm = this._fb.group({
+                        email: ['', common_2.Validators.compose([
+                                common_2.Validators.required,
+                                this.isEmail
+                            ])],
+                        password: ['', common_2.Validators.required]
+                    });
+                };
+                SigninComponent.prototype.isEmail = function (control) {
+                    if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+                        return { invalidMail: true };
+                    }
+                };
+                SigninComponent = __decorate([
+                    core_6.Component({
+                        selector: 'my-signin',
+                        template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <form [ngFormModel]=\"myForm\" (ngSubmit)=\"onSubmit()\">\n                <div class=\"form-group\">\n                    <label for=\"email\">Mail</label>\n                    <input [ngFormControl]=\"myForm.find('email')\" type=\"text\" id=\"email\" class=\"form-control\">\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"password\">Password</label>\n                    <input [ngFormControl]=\"myForm.find('password')\" type=\"password\" id=\"password\" class=\"form-control\">\n                </div>\n                <button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"!myForm.valid\">Sign In</button>\n            </form>\n        </section>\n    "
+                    }), 
+                    __metadata('design:paramtypes', [common_2.FormBuilder])
+                ], SigninComponent);
+                return SigninComponent;
+            }());
+            exports_8("SigninComponent", SigninComponent);
+        }
+    }
+});
+System.register("auth/logout.component", ['angular2/core'], function(exports_9, context_9) {
+    "use strict";
+    var __moduleName = context_9 && context_9.id;
+    var core_7;
+    var LogoutComponent;
+    return {
+        setters:[
+            function (core_7_1) {
+                core_7 = core_7_1;
+            }],
+        execute: function() {
+            LogoutComponent = (function () {
+                function LogoutComponent() {
+                }
+                LogoutComponent.prototype.onLogout = function () {
+                };
+                LogoutComponent = __decorate([
+                    core_7.Component({
+                        selector: 'my-logout',
+                        template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <button class=\"btn btn-danger\" (click)=\"onLogout()\">Logout</button>\n        </section>\n\n\n    "
+                    }), 
+                    __metadata('design:paramtypes', [])
+                ], LogoutComponent);
+                return LogoutComponent;
+            }());
+            exports_9("LogoutComponent", LogoutComponent);
+        }
+    }
+});
+System.register("auth/authentication.component", ['angular2/core', "auth/signup.component", "angular2/router", "auth/signin.component", "auth/logout.component"], function(exports_10, context_10) {
+    "use strict";
+    var __moduleName = context_10 && context_10.id;
+    var core_8, signup_component_1, router_1, signin_component_1, logout_component_1;
+    var AuthenticationComponent;
+    return {
+        setters:[
+            function (core_8_1) {
+                core_8 = core_8_1;
+            },
             function (signup_component_1_1) {
                 signup_component_1 = signup_component_1_1;
+            },
+            function (router_1_1) {
+                router_1 = router_1_1;
+            },
+            function (signin_component_1_1) {
+                signin_component_1 = signin_component_1_1;
+            },
+            function (logout_component_1_1) {
+                logout_component_1 = logout_component_1_1;
             }],
         execute: function() {
             AuthenticationComponent = (function () {
                 function AuthenticationComponent() {
                 }
                 AuthenticationComponent = __decorate([
-                    core_6.Component({
+                    core_8.Component({
                         selector: 'my-auth',
-                        template: "\n        <h1>Auth</h1>\n        <my-signup></my-signup>\n    ",
-                        directives: [signup_component_1.SignupComponent]
-                    }), 
+                        template: "\n        <header class=\"row spacing\">\n            <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-tabs\">\n                    <li><a [routerLink]=\"['Signin']\">Signin</a></li>\n                    <li><a [routerLink]=\"['Signup']\">Signup</a></li>\n                    <li><a [routerLink]=\"['Logout']\">Logout</a></li>\n                </ul>        \n            </nav>\n        </header>\n        <div class=\"row spacing\">\n            <router-outlet></router-outlet>\n        \n        </div>\n    ",
+                        directives: [router_1.ROUTER_DIRECTIVES, signup_component_1.SignupComponent],
+                        styles: ["\n        .router-link-active {\n            cursor: default;\n            color: ghostwhite;\n            background-color: lightslategrey;\n            border: 1px solid #ddd;\n            border-bottom-color: transparent;\n        }\n    "]
+                    }),
+                    router_1.RouteConfig([
+                        { path: '/signin', name: 'Signin', component: signin_component_1.SigninComponent },
+                        { path: '/signup', name: 'Signup', component: signup_component_1.SignupComponent },
+                        { path: '/logout', name: 'Logout', component: logout_component_1.LogoutComponent }
+                    ]), 
                     __metadata('design:paramtypes', [])
                 ], AuthenticationComponent);
                 return AuthenticationComponent;
             }());
-            exports_8("AuthenticationComponent", AuthenticationComponent);
+            exports_10("AuthenticationComponent", AuthenticationComponent);
         }
     }
 });
-System.register("header.component", ['angular2/core', "angular2/router"], function(exports_9, context_9) {
+System.register("header.component", ['angular2/core', "angular2/router"], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
-    var core_7, router_1;
+    var __moduleName = context_11 && context_11.id;
+    var core_9, router_2;
     var HeaderComponent;
     return {
         setters:[
-            function (core_7_1) {
-                core_7 = core_7_1;
+            function (core_9_1) {
+                core_9 = core_9_1;
             },
-            function (router_1_1) {
-                router_1 = router_1_1;
+            function (router_2_1) {
+                router_2 = router_2_1;
             }],
         execute: function() {
             HeaderComponent = (function () {
                 function HeaderComponent() {
                 }
                 HeaderComponent = __decorate([
-                    core_7.Component({
+                    core_9.Component({
                         selector: 'my-header',
                         template: "\n        <header class=\"row\">\n             <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-pills\">\n                    <li><a [routerLink]=\"['Messenger']\">Messenger</a></li>\n                    <li><a [routerLink]=\"['Auth']\">Authentication</a></li>\n                </ul>\n              </nav>\n        </header>\n     ",
-                        directives: [router_1.ROUTER_DIRECTIVES],
+                        directives: [router_2.ROUTER_DIRECTIVES],
                         styles: ["\n        header {\n           margin-bottom: 20px;\n        }\n        \n        ul {\n           text-align: center;\n        }\n        \n        li {\n            float: none;\n            display: inline-block;\n        }\n    "]
                     }), 
                     __metadata('design:paramtypes', [])
                 ], HeaderComponent);
                 return HeaderComponent;
             }());
-            exports_9("HeaderComponent", HeaderComponent);
+            exports_11("HeaderComponent", HeaderComponent);
         }
     }
 });
-System.register("app.component", ['angular2/core', "angular2/router", "messages/messages.component", "auth/authentication.component", "header.component"], function(exports_10, context_10) {
+System.register("app.component", ['angular2/core', "angular2/router", "messages/messages.component", "auth/authentication.component", "header.component"], function(exports_12, context_12) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
-    var core_8, router_2, messages_component_1, authentication_component_1, header_component_1;
+    var __moduleName = context_12 && context_12.id;
+    var core_10, router_3, messages_component_1, authentication_component_1, header_component_1;
     var AppComponent;
     return {
         setters:[
-            function (core_8_1) {
-                core_8 = core_8_1;
+            function (core_10_1) {
+                core_10 = core_10_1;
             },
-            function (router_2_1) {
-                router_2 = router_2_1;
+            function (router_3_1) {
+                router_3 = router_3_1;
             },
             function (messages_component_1_1) {
                 messages_component_1 = messages_component_1_1;
@@ -368,27 +461,27 @@ System.register("app.component", ['angular2/core', "angular2/router", "messages/
                 function AppComponent() {
                 }
                 AppComponent = __decorate([
-                    core_8.Component({
+                    core_10.Component({
                         selector: 'my-app',
                         template: "  \n           <div class=\"container\">\n                <my-header></my-header>\n                <router-outlet></router-outlet>\n            </div>\n    ",
-                        directives: [router_2.ROUTER_DIRECTIVES, header_component_1.HeaderComponent]
+                        directives: [router_3.ROUTER_DIRECTIVES, header_component_1.HeaderComponent]
                     }),
-                    router_2.RouteConfig([
+                    router_3.RouteConfig([
                         { path: '/', name: 'Messenger', component: messages_component_1.MessagesComponent, useAsDefault: true },
-                        { path: '/auth', name: 'Auth', component: authentication_component_1.AuthenticationComponent }
+                        { path: '/auth/...', name: 'Auth', component: authentication_component_1.AuthenticationComponent }
                     ]), 
                     __metadata('design:paramtypes', [])
                 ], AppComponent);
                 return AppComponent;
             }());
-            exports_10("AppComponent", AppComponent);
+            exports_12("AppComponent", AppComponent);
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core"], function(exports_11, context_11) {
+System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core"], function(exports_13, context_13) {
     "use strict";
-    var __moduleName = context_11 && context_11.id;
-    var browser_1, app_component_1, message_service_4, router_3, core_9;
+    var __moduleName = context_13 && context_13.id;
+    var browser_1, app_component_1, message_service_4, router_4, core_11;
     return {
         setters:[
             function (browser_1_1) {
@@ -400,73 +493,20 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
             function (message_service_4_1) {
                 message_service_4 = message_service_4_1;
             },
-            function (router_3_1) {
-                router_3 = router_3_1;
+            function (router_4_1) {
+                router_4 = router_4_1;
             },
-            function (core_9_1) {
-                core_9 = core_9_1;
+            function (core_11_1) {
+                core_11 = core_11_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, router_3.ROUTER_PROVIDERS, core_9.provide(router_3.LocationStrategy, { useClass: router_3.HashLocationStrategy })]);
+            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, router_4.ROUTER_PROVIDERS, core_11.provide(router_4.LocationStrategy, { useClass: router_4.HashLocationStrategy })]);
         }
     }
 });
 /**
  * Created by Tony on 24-05-16.
  */
-System.register("auth/logout.component", ['angular2/core'], function(exports_12, context_12) {
-    "use strict";
-    var __moduleName = context_12 && context_12.id;
-    var core_10;
-    var LogoutComponent;
-    return {
-        setters:[
-            function (core_10_1) {
-                core_10 = core_10_1;
-            }],
-        execute: function() {
-            LogoutComponent = (function () {
-                function LogoutComponent() {
-                }
-                LogoutComponent.prototype.onLogout = function () {
-                };
-                LogoutComponent = __decorate([
-                    core_10.Component({
-                        selector: 'my-logout',
-                        template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <button class=\"btn btn-danger\" (click)=\"onLogout()\">Logout</button>\n        </section>\n\n\n    "
-                    }), 
-                    __metadata('design:paramtypes', [])
-                ], LogoutComponent);
-                return LogoutComponent;
-            }());
-            exports_12("LogoutComponent", LogoutComponent);
-        }
-    }
-});
-System.register("auth/signin.component", ['angular2/core'], function(exports_13, context_13) {
-    "use strict";
-    var __moduleName = context_13 && context_13.id;
-    var core_11;
-    var SigninComponent;
-    return {
-        setters:[
-            function (core_11_1) {
-                core_11 = core_11_1;
-            }],
-        execute: function() {
-            SigninComponent = (function () {
-                function SigninComponent() {
-                }
-                SigninComponent = __decorate([
-                    core_11.Component({}), 
-                    __metadata('design:paramtypes', [])
-                ], SigninComponent);
-                return SigninComponent;
-            }());
-            exports_13("SigninComponent", SigninComponent);
-        }
-    }
-});
 System.register("auth/user", [], function(exports_14, context_14) {
     "use strict";
     var __moduleName = context_14 && context_14.id;
