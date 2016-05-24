@@ -3,7 +3,6 @@ var Schema = mongoose.Schema;
 
 var schema = new Schema({
     content: {type: String, required: true},
-    date: {type: Schema.Types.Date, required: true},
     user: {type: Schema.Types.ObjectId, ref: 'User'}
 });
 

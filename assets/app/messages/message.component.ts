@@ -46,13 +46,17 @@ export class MessageComponent {
     constructor(private _messageService: MessageService) {}
 
     onEdit() {
+        console.log('Edit button clicked in the Front-End.');
         this._messageService.editMessage(this.message);
-        console.log('Edit button clicked!');
     }
 
     onDelete() {
-        this._messageService.deleteMessage(this.message);
-        console.log('Delete button clicked!');
+        console.log('Delete button clicked in Front-End.');
+        this._messageService.deleteMessage(this.message)
+            .subscribe(
+                data => console.log(data),
+                error => console.error(error)
+            );
     }
 
 }
