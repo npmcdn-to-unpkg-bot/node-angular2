@@ -41,7 +41,7 @@ export class MessageInputComponent implements  OnInit  {
             this._messageService.addMessage(message)
                 .subscribe(
                     data => {
-                        console.log(data);
+                        // console.log(data);
                         this._messageService.messages.push(data);
                     },
                     error => console.error(error)
