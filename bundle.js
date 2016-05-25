@@ -128,7 +128,7 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
             }],
         execute: function() {
             MessageComponent = (function () {
-                function MessageComponent(_messageService) {
+                function MessageComponent(_messageService, private) {
                     this._messageService = _messageService;
                     this.editClicked = new core_2.EventEmitter();
                 }
@@ -158,7 +158,7 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
                         template: "\n         <article class=\"panel panel-default\" >\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\" *ngIf=\"belongsToUser()\">\n                    <a (click)=\"onEdit()\">Edit</a>\n                    <a (click)=\"onDelete()\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
                         styles: ["\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
                     }), 
-                    __metadata('design:paramtypes', [message_service_1.MessageService])
+                    __metadata('design:paramtypes', [message_service_1.MessageService, Object])
                 ], MessageComponent);
                 return MessageComponent;
             }());
@@ -632,15 +632,105 @@ System.register("header.component", ['angular2/core', "angular2/router"], functi
         }
     }
 });
-System.register("app.component", ['angular2/core', "angular2/router", "messages/messages.component", "auth/authentication.component", "header.component"], function(exports_14, context_14) {
+System.register("errors/error", [], function(exports_14, context_14) {
     "use strict";
     var __moduleName = context_14 && context_14.id;
-    var core_12, router_5, messages_component_1, authentication_component_1, header_component_1;
-    var AppComponent;
+    var Error;
+    return {
+        setters:[],
+        execute: function() {
+            Error = (function () {
+                function Error(title, message) {
+                    this.title = title;
+                    this.message = message;
+                }
+                return Error;
+            }());
+            exports_14("Error", Error);
+        }
+    }
+});
+System.register("errors/error.service", ["angular2/core", "errors/error"], function(exports_15, context_15) {
+    "use strict";
+    var __moduleName = context_15 && context_15.id;
+    var core_12, error_1;
+    var ErrorService;
     return {
         setters:[
             function (core_12_1) {
                 core_12 = core_12_1;
+            },
+            function (error_1_1) {
+                error_1 = error_1_1;
+            }],
+        execute: function() {
+            ErrorService = (function () {
+                function ErrorService() {
+                    this.errorOccurred = new core_12.EventEmitter();
+                }
+                ErrorService.prototype.handleError = function (error) {
+                    var errorData = new error_1.Error(error.title, error.error.message);
+                    this.errorOccurred.emit(errorData);
+                };
+                return ErrorService;
+            }());
+            exports_15("ErrorService", ErrorService);
+        }
+    }
+});
+System.register("errors/error.component", ["angular2/core", "errors/error.service"], function(exports_16, context_16) {
+    "use strict";
+    var __moduleName = context_16 && context_16.id;
+    var core_13, error_service_1;
+    var ErrorComponent;
+    return {
+        setters:[
+            function (core_13_1) {
+                core_13 = core_13_1;
+            },
+            function (error_service_1_1) {
+                error_service_1 = error_service_1_1;
+            }],
+        execute: function() {
+            ErrorComponent = (function () {
+                function ErrorComponent(_errorService) {
+                    this._errorService = _errorService;
+                    this.errorDisplay = 'none';
+                }
+                ErrorComponent.prototype.onErrorHandle = function () {
+                    this.errorDisplay = 'none';
+                };
+                ErrorComponent.prototype.ngOnInit = function () {
+                    var _this = this;
+                    this._errorService.errorOccurred.subscribe(function (errorData) {
+                        _this.errorData = errorData;
+                        _this.errorDisplay = 'block';
+                    });
+                };
+                ErrorComponent = __decorate([
+                    core_13.Component({
+                        selector: 'my-error',
+                        template: "\n        <div class=\"backdrop\" [ngStyle]=\"{'display': errorDisplay}\"></div>\n        <div class=\"modal\" tabindex=\"-1\" role=\"dialog\" [ngStyle[=\"{'display': errorDisplay}\">\n            <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n                       <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"onErrorHandle()\">\n                            <span aria-hidden=\"true\">&times;</span> \n                       </button>\n                       <h4 class=\"modal-title\">{{ errorData?.title }}</h4>\n                    </div>\n                    <div class=\"modal-body\">\n                        <p>{{ errorData?.message }}</p>\n                    </div>\n                    <div class=\"modal-footer\">\n                        <button type=\"button\" class=\"btn btn-defailt\" (click)=\"onErrorHandle()\">Close</button>\n                    </div>\n                </div> <!-- modal-content-->            \n            </div><!-- modal-dialog-->\n        </div><!-- modal-->\n    ",
+                        styles: ["\n        .backdrop {\n            background-color: rgba(0,0,0,0.6);\n            position: fixed;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100vh;\n        }        \n    "],
+                        providers: [error_service_1.ErrorService]
+                    }), 
+                    __metadata('design:paramtypes', [error_service_1.ErrorService])
+                ], ErrorComponent);
+                return ErrorComponent;
+            }());
+            exports_16("ErrorComponent", ErrorComponent);
+        }
+    }
+});
+System.register("app.component", ['angular2/core', "angular2/router", "messages/messages.component", "auth/authentication.component", "header.component", "errors/error.component"], function(exports_17, context_17) {
+    "use strict";
+    var __moduleName = context_17 && context_17.id;
+    var core_14, router_5, messages_component_1, authentication_component_1, header_component_1, error_component_1;
+    var AppComponent;
+    return {
+        setters:[
+            function (core_14_1) {
+                core_14 = core_14_1;
             },
             function (router_5_1) {
                 router_5 = router_5_1;
@@ -653,16 +743,19 @@ System.register("app.component", ['angular2/core', "angular2/router", "messages/
             },
             function (header_component_1_1) {
                 header_component_1 = header_component_1_1;
+            },
+            function (error_component_1_1) {
+                error_component_1 = error_component_1_1;
             }],
         execute: function() {
             AppComponent = (function () {
                 function AppComponent() {
                 }
                 AppComponent = __decorate([
-                    core_12.Component({
+                    core_14.Component({
                         selector: 'my-app',
-                        template: "  \n           <div class=\"container\">\n                <my-header></my-header>\n                <router-outlet></router-outlet>\n            </div>\n    ",
-                        directives: [router_5.ROUTER_DIRECTIVES, header_component_1.HeaderComponent]
+                        template: "  \n           <div class=\"container\">\n                <my-header></my-header>\n                <router-outlet></router-outlet>\n            </div>\n            <my-error></my-error>\n    ",
+                        directives: [router_5.ROUTER_DIRECTIVES, header_component_1.HeaderComponent, error_component_1.ErrorComponent]
                     }),
                     router_5.RouteConfig([
                         { path: '/', name: 'Messages', component: messages_component_1.MessagesComponent, useAsDefault: true },
@@ -672,14 +765,14 @@ System.register("app.component", ['angular2/core', "angular2/router", "messages/
                 ], AppComponent);
                 return AppComponent;
             }());
-            exports_14("AppComponent", AppComponent);
+            exports_17("AppComponent", AppComponent);
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core", "angular2/http", "auth/auth.service"], function(exports_15, context_15) {
+System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core", "angular2/http", "auth/auth.service"], function(exports_18, context_18) {
     "use strict";
-    var __moduleName = context_15 && context_15.id;
-    var browser_1, app_component_1, message_service_4, router_6, core_13, http_3, auth_service_5;
+    var __moduleName = context_18 && context_18.id;
+    var browser_1, app_component_1, message_service_4, router_6, core_15, http_3, auth_service_5;
     return {
         setters:[
             function (browser_1_1) {
@@ -694,8 +787,8 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
             function (router_6_1) {
                 router_6 = router_6_1;
             },
-            function (core_13_1) {
-                core_13 = core_13_1;
+            function (core_15_1) {
+                core_15 = core_15_1;
             },
             function (http_3_1) {
                 http_3 = http_3_1;
@@ -704,7 +797,7 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
                 auth_service_5 = auth_service_5_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, auth_service_5.AuthService, router_6.ROUTER_PROVIDERS, core_13.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy }), http_3.HTTP_PROVIDERS]);
+            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, auth_service_5.AuthService, router_6.ROUTER_PROVIDERS, core_15.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy }), http_3.HTTP_PROVIDERS]);
         }
     }
 });

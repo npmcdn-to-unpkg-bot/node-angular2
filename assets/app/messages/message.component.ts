@@ -41,7 +41,7 @@ export class MessageComponent {
    @Input() message:Message;
    @Output() editClicked = new EventEmitter<string>();
 
-    constructor(private _messageService: MessageService) {}
+    constructor(private _messageService: MessageService, private ) {}
 
     onEdit() {
         console.log('Edit button clicked in the Front-End.');
