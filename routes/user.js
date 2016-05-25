@@ -4,15 +4,15 @@ var passwordHash = require('password-hash');
 var jwt = require('jsonwebtoken');
 var User = require('../models/user');
 
-router.post('/', function(req,res,next) {
+router.post('/', function(req, res, next) {
     var user = new User({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         password: passwordHash.generate(req.body.password),
         email:  req.body.email
     });
-    user.save(function (err, result) {
-        if(err){
+    user.save(function(err, result) {
+        if (err){
             return res.status(404).json({
                 title: 'An error occurred',
                 error: err
@@ -29,7 +29,7 @@ router.post('/signin', function(req,res,next) {
     User.findOne({email: req.body.email}, function (err, doc) {
         if (err) {
             return res.status(404).json({
-                title: 'Cannot Sign-in, An error occurred.',
+                title: 'Cannot Sign-in. An error occurred.',
                 error: err
             });
         }
@@ -50,8 +50,8 @@ router.post('/signin', function(req,res,next) {
             message: 'JWT created successfully. Expires in 7200 seconds.',
             obj: token,
             userId: doc._id
-        })
-    });
+        });
+    })
 });
 
 module.exports = router;

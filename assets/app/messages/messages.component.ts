@@ -1,4 +1,4 @@
-import {Component, Input, Output, EventEmitter} from "angular2/core";
+import {Component} from "angular2/core";
 import {MessageListComponent} from "./message-list.component";
 import {MessageInputComponent} from "./message-input.component";
 

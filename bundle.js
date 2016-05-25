@@ -63,7 +63,7 @@ System.register("messages/message.service", ["messages/message", "angular2/http"
                     return this._http.post('http://localhost:3000/message' + token, body, { headers: headers })
                         .map(function (response) {
                         var data = response.json().obj;
-                        var message = new message_1.Message(data.content, data._id, 'Dummy', null);
+                        var message = new message_1.Message(data.content, data._id, data.user.firstName, data.user._id);
                         return message;
                     })
                         .catch(function (error) { return Observable_1.Observable.throw(error.json()); });
@@ -74,7 +74,7 @@ System.register("messages/message.service", ["messages/message", "angular2/http"
                         var data = response.json().obj;
                         var objs = [];
                         for (var i = 0; i < data.length; i++) {
-                            var message = new message_1.Message(data[i].content, data[i]._id, 'Dummy', null);
+                            var message = new message_1.Message(data[i].content, data[i]._id, data[i].user.firstName, data[i].user._id);
                             objs.push(message);
                         }
                         ;
@@ -88,13 +88,15 @@ System.register("messages/message.service", ["messages/message", "angular2/http"
                 MessageService.prototype.updateMessage = function (message) {
                     var body = JSON.stringify(message);
                     var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-                    return this._http.patch('http://localhost:3000/message/' + message.messageId, body, { headers: headers })
+                    var token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+                    return this._http.patch('http://localhost:3000/message/' + message.messageId + token, body, { headers: headers })
                         .map(function (response) { return response.json(); })
                         .catch(function (error) { return Observable_1.Observable.throw(error.json()); });
                 };
                 MessageService.prototype.deleteMessage = function (message) {
                     this.messages.splice(this.messages.indexOf(message), 1);
-                    return this._http.delete('http://localhost:3000/message/' + message.messageId)
+                    var token = localStorage.getItem('token') ? '?token=' + localStorage.getItem('token') : '';
+                    return this._http.delete('http://localhost:3000/message/' + message.messageId + token)
                         .map(function (response) { return response.json(); })
                         .catch(function (error) { return Observable_1.Observable.throw(error.json()); });
                 };
@@ -129,7 +131,6 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
                 function MessageComponent(_messageService) {
                     this._messageService = _messageService;
                     this.editClicked = new core_2.EventEmitter();
-                    this.show = true;
                 }
                 MessageComponent.prototype.onEdit = function () {
                     console.log('Edit button clicked in the Front-End.');
@@ -139,6 +140,9 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
                     console.log('Delete button clicked in Front-End.');
                     this._messageService.deleteMessage(this.message)
                         .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
+                };
+                MessageComponent.prototype.belongsToUser = function () {
+                    return localStorage.getItem('userId') == this.message.userId;
                 };
                 __decorate([
                     core_2.Input(), 
@@ -151,9 +155,8 @@ System.register("messages/message.component", ["angular2/core", "messages/messag
                 MessageComponent = __decorate([
                     core_2.Component({
                         selector: 'my-message',
-                        template: "\n         <article class=\"panel panel-default\" *ngIf=\"show\">\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\">\n                    <a (click)=\"onEdit()\">Edit</a>\n                    <a (click)=\"onDelete()\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
-                        styles: [
-                            "\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
+                        template: "\n         <article class=\"panel panel-default\" >\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\" *ngIf=\"belongsToUser()\">\n                    <a (click)=\"onEdit()\">Edit</a>\n                    <a (click)=\"onDelete()\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
+                        styles: ["\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
                     }), 
                     __metadata('design:paramtypes', [message_service_1.MessageService])
                 ], MessageComponent);
@@ -188,9 +191,10 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
                     var _this = this;
                     this._messageService.getMessages()
                         .subscribe(function (messages) {
+                        console.log(messages);
                         _this.messages = messages;
                         _this._messageService.messages = messages;
-                    });
+                    }, function (error) { return console.error(error); });
                 };
                 MessageListComponent = __decorate([
                     core_3.Component({
@@ -243,7 +247,7 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                         var message = new message_3.Message(form.content, null, 'System');
                         this._messageService.addMessage(message)
                             .subscribe(function (data) {
-                            // console.log(data);
+                            console.log(data);
                             _this._messageService.messages.push(data);
                         }, function (error) { return console.error(error); });
                     }
@@ -254,6 +258,7 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                 MessageInputComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._messageService.messageIsEdit.subscribe(function (message) {
+                        console.log(message);
                         _this.message = message;
                     });
                 };
@@ -403,6 +408,7 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common", "a
                 }
                 SignupComponent.prototype.onSubmit = function () {
                     var user = new user_1.User(this.myForm.value.email, this.myForm.value.password, this.myForm.value.firstName, this.myForm.value.lastName);
+                    console.log(user);
                     this._authService.signup(user)
                         .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
                 };
@@ -418,7 +424,7 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common", "a
                     });
                 };
                 SignupComponent.prototype.isEmail = function (control) {
-                    if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+                    if (!control.value.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
                         return { invalidMail: true };
                     }
                 };
@@ -484,7 +490,7 @@ System.register("auth/signin.component", ['angular2/core', "angular2/common", "a
                     });
                 };
                 SigninComponent.prototype.isEmail = function (control) {
-                    if (!control.value.match(/^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/)) {
+                    if (!control.value.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
                         return { invalidMail: true };
                     }
                 };
@@ -614,7 +620,7 @@ System.register("header.component", ['angular2/core', "angular2/router"], functi
                 HeaderComponent = __decorate([
                     core_11.Component({
                         selector: 'my-header',
-                        template: "\n        <header class=\"row\">\n             <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-pills\">\n                    <li><a [routerLink]=\"['Messenger']\">Messages</a></li>\n                    <li><a [routerLink]=\"['Auth']\">Authentication</a></li>\n                </ul>\n              </nav>\n        </header>\n     ",
+                        template: "\n        <header class=\"row\">\n             <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-pills\">\n                    <li><a [routerLink]=\"['Messages']\">Messages</a></li>\n                    <li><a [routerLink]=\"['Auth']\">Authentication</a></li>\n                </ul>\n              </nav>\n        </header>\n     ",
                         directives: [router_4.ROUTER_DIRECTIVES],
                         styles: ["\n        header {\n           margin-bottom: 20px;\n        }\n        \n        ul {\n           text-align: center;\n        }\n        \n        li {\n            float: none;\n            display: inline-block;\n        }\n    "]
                     }), 
@@ -659,7 +665,7 @@ System.register("app.component", ['angular2/core', "angular2/router", "messages/
                         directives: [router_5.ROUTER_DIRECTIVES, header_component_1.HeaderComponent]
                     }),
                     router_5.RouteConfig([
-                        { path: '/', name: 'Messenger', component: messages_component_1.MessagesComponent, useAsDefault: true },
+                        { path: '/', name: 'Messages', component: messages_component_1.MessagesComponent, useAsDefault: true },
                         { path: '/auth/...', name: 'Auth', component: authentication_component_1.AuthenticationComponent }
                     ]), 
                     __metadata('design:paramtypes', [])

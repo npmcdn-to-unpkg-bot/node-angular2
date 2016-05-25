@@ -4,8 +4,11 @@ var jwt = require('jsonwebtoken');
 var Message = require('../models/message');
 var User = require('../models/user');
 
+// Here we restrict populate to only fetch the firstname of the User.
+// If we should not restrict the data, then all data in the User object will be populated.
 router.get('/', function (req,res,next) {
     Message.find()
+        .populate('user', 'firstName')
         .exec(function(err, docs){
             if(err){
                 return res.status(404).json({
@@ -26,7 +29,7 @@ router.use('/', function (req, res, next) {
     jwt.verify(req.query.token, 'secret', function (err, decoded) {
         if (err) {
             return res.status(404).json({
-                title: 'Authentication failed!',
+                title: 'routes/messages,js => Authentication failed!',
                 error: err
             });
         }
@@ -35,9 +38,9 @@ router.use('/', function (req, res, next) {
     });
 });
 
-router.post('/', function (req,res,next) {
+router.post('/', function(req,res,next) {
     var decoded = jwt.decode(req.query.token);
-    User.findById(decoded.user._id, function (err, doc) {
+    User.findById(decoded.user._id, function(err, doc) {
         if (err) {
             return res.status(404).json({
                 title: 'An error occurred',
@@ -48,7 +51,7 @@ router.post('/', function (req,res,next) {
             content: req.body.content,
             user: doc
         });
-        message.save(function (err, result) {
+        message.save(function(err, result) {
             if (err) {
                 return res.status(404).json({
                     title: 'An error occurred',
@@ -83,6 +86,9 @@ router.patch('/:id', function(req, res, next) {
                 error: {message: 'Message could not be found!'}
             });
         }
+        // Remove this debugging code when go to production
+        console.log(doc.user);
+        console.log(decoded.user);
         if (doc.user != decoded.user._id) {
             return res.status(401).json({
                 title: 'Not Authorized',
@@ -96,17 +102,17 @@ router.patch('/:id', function(req, res, next) {
                 return res.status(404).json({
                     title: 'An error occurred.',
                     error: err
-                })
+                });
             }
             res.status(200).json({
-                message: 'Message Updated!',
+                message: 'Success message updated!',
                 obj: result
             });
         });
     });
 });
 
-router.delete('/:id', function (req,res,next) {
+router.delete('/:id', function(req,res,next) {
     // Update content with patch not replace.
     var decoded = jwt.decode(req.query.token);
     Message.findById(req.params.id, function(err, doc) {
@@ -135,10 +141,10 @@ router.delete('/:id', function (req,res,next) {
                 return res.status(404).json({
                     title: 'An error occurred.',
                     error: err
-                })
+                });
             }
             res.status(200).json({
-                message: 'Message Deleted!',
+                message: 'Success message deleted!',
                 obj: result
             });
         });

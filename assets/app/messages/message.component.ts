@@ -6,7 +6,7 @@ import {MessageService} from "./message.service";
 @Component({
     selector: 'my-message',
     template: `
-         <article class="panel panel-default" *ngIf="show">
+         <article class="panel panel-default" >
             <div class="panel-body">
                 {{ message.content }}
             </div>    
@@ -14,15 +14,14 @@ import {MessageService} from "./message.service";
                 <div class="author">
                 {{ message.username }}
                 </div>
-                <div class="config">
+                <div class="config" *ngIf="belongsToUser()">
                     <a (click)="onEdit()">Edit</a>
                     <a (click)="onDelete()">Delete</a>
                </div>
             </footer>
          </article>  
     `,
-    styles: [
-        `
+    styles: [`
             .author {
                 display: inline-block;
                 font-style: italic;
@@ -41,7 +40,6 @@ import {MessageService} from "./message.service";
 export class MessageComponent {
    @Input() message:Message;
    @Output() editClicked = new EventEmitter<string>();
-    show = true;
 
     constructor(private _messageService: MessageService) {}
 
@@ -59,4 +57,7 @@ export class MessageComponent {
             );
     }
 
+    belongsToUser() {
+        return localStorage.getItem('userId') == this.message.userId;
+    }
 }
