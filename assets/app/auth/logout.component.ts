@@ -8,8 +8,6 @@ import {Router} from "angular2/router";
         <section class="col-md-8 col-md-offset-2">
             <button class="btn btn-danger" (click)="onLogout()">Logout</button>
         </section>
-
-
     `
 })
 
@@ -17,8 +15,8 @@ export class LogoutComponent {
 
     constructor(private _authService: AuthService, private _router: Router) {}
 
+    // Clear the localstorage and navigate to signin page
     onLogout() {
-        // Clear the localstorage and navigate to signin page
         this._authService.logout();
         this._router.navigate(['Signin']);
     }

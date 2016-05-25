@@ -6,7 +6,7 @@ import {ErrorService} from "./error.service";
     selector: 'my-error',
     template: `
         <div class="backdrop" [ngStyle]="{'display': errorDisplay}"></div>
-        <div class="modal" tabindex="-1" role="dialog" [ngStyle[="{'display': errorDisplay}">
+        <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display': errorDisplay}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -24,7 +24,7 @@ import {ErrorService} from "./error.service";
                 </div> <!-- modal-content-->            
             </div><!-- modal-dialog-->
         </div><!-- modal-->
-    `
+    `,
     styles: [`
         .backdrop {
             background-color: rgba(0,0,0,0.6);
@@ -34,8 +34,7 @@ import {ErrorService} from "./error.service";
             width: 100%;
             height: 100vh;
         }        
-    `],
-    providers: [ErrorService]
+    `]
 })
 
 export class ErrorComponent implements OnInit {

@@ -110,82 +110,137 @@ System.register("messages/message.service", ["messages/message", "angular2/http"
         }
     }
 });
-System.register("messages/message.component", ["angular2/core", "messages/message", "messages/message.service"], function(exports_3, context_3) {
+System.register("errors/error", [], function(exports_3, context_3) {
     "use strict";
     var __moduleName = context_3 && context_3.id;
-    var core_2, message_2, message_service_1;
-    var MessageComponent;
+    var Error;
+    return {
+        setters:[],
+        execute: function() {
+            Error = (function () {
+                function Error(title, message) {
+                    this.title = title;
+                    this.message = message;
+                }
+                return Error;
+            }());
+            exports_3("Error", Error);
+        }
+    }
+});
+System.register("errors/error.service", ["angular2/core", "errors/error"], function(exports_4, context_4) {
+    "use strict";
+    var __moduleName = context_4 && context_4.id;
+    var core_2, error_1;
+    var ErrorService;
     return {
         setters:[
             function (core_2_1) {
                 core_2 = core_2_1;
+            },
+            function (error_1_1) {
+                error_1 = error_1_1;
+            }],
+        execute: function() {
+            ErrorService = (function () {
+                function ErrorService() {
+                    this.errorOccurred = new core_2.EventEmitter();
+                }
+                ErrorService.prototype.handleError = function (error) {
+                    var errorData = new error_1.Error(error.title, error.error.message);
+                    this.errorOccurred.emit(errorData);
+                };
+                return ErrorService;
+            }());
+            exports_4("ErrorService", ErrorService);
+        }
+    }
+});
+System.register("messages/message.component", ["angular2/core", "messages/message", "messages/message.service", "errors/error.service"], function(exports_5, context_5) {
+    "use strict";
+    var __moduleName = context_5 && context_5.id;
+    var core_3, message_2, message_service_1, error_service_1;
+    var MessageComponent;
+    return {
+        setters:[
+            function (core_3_1) {
+                core_3 = core_3_1;
             },
             function (message_2_1) {
                 message_2 = message_2_1;
             },
             function (message_service_1_1) {
                 message_service_1 = message_service_1_1;
+            },
+            function (error_service_1_1) {
+                error_service_1 = error_service_1_1;
             }],
         execute: function() {
             MessageComponent = (function () {
-                function MessageComponent(_messageService, private) {
+                function MessageComponent(_messageService, _errorService) {
                     this._messageService = _messageService;
-                    this.editClicked = new core_2.EventEmitter();
+                    this._errorService = _errorService;
+                    this.editClicked = new core_3.EventEmitter();
                 }
                 MessageComponent.prototype.onEdit = function () {
                     console.log('Edit button clicked in the Front-End.');
                     this._messageService.editMessage(this.message);
                 };
                 MessageComponent.prototype.onDelete = function () {
+                    var _this = this;
                     console.log('Delete button clicked in Front-End.');
                     this._messageService.deleteMessage(this.message)
-                        .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
+                        .subscribe(function (data) { return console.log(data); }, function (error) { return _this._errorService.handleError(error); });
                 };
                 MessageComponent.prototype.belongsToUser = function () {
                     return localStorage.getItem('userId') == this.message.userId;
                 };
                 __decorate([
-                    core_2.Input(), 
+                    core_3.Input(), 
                     __metadata('design:type', message_2.Message)
                 ], MessageComponent.prototype, "message", void 0);
                 __decorate([
-                    core_2.Output(), 
+                    core_3.Output(), 
                     __metadata('design:type', Object)
                 ], MessageComponent.prototype, "editClicked", void 0);
                 MessageComponent = __decorate([
-                    core_2.Component({
+                    core_3.Component({
                         selector: 'my-message',
                         template: "\n         <article class=\"panel panel-default\" >\n            <div class=\"panel-body\">\n                {{ message.content }}\n            </div>    \n            <footer class=\"panel-footer\">\n                <div class=\"author\">\n                {{ message.username }}\n                </div>\n                <div class=\"config\" *ngIf=\"belongsToUser()\">\n                    <a (click)=\"onEdit()\">Edit</a>\n                    <a (click)=\"onDelete()\">Delete</a>\n               </div>\n            </footer>\n         </article>  \n    ",
                         styles: ["\n            .author {\n                display: inline-block;\n                font-style: italic;\n                font-size: 12px;\n                width: 80%;\n            }\n            .config {\n                display: inline-block;\n                text-align: right;\n                font-size: 12px;\n                width: 19%;\n            }\n        "]
                     }), 
-                    __metadata('design:paramtypes', [message_service_1.MessageService, Object])
+                    __metadata('design:paramtypes', [message_service_1.MessageService, error_service_1.ErrorService])
                 ], MessageComponent);
                 return MessageComponent;
             }());
-            exports_3("MessageComponent", MessageComponent);
+            exports_5("MessageComponent", MessageComponent);
         }
     }
 });
-System.register("messages/message-list.component", ['angular2/core', "messages/message.component", "messages/message.service"], function(exports_4, context_4) {
+System.register("messages/message-list.component", ['angular2/core', "messages/message.component", "messages/message.service", "errors/error.service"], function(exports_6, context_6) {
     "use strict";
-    var __moduleName = context_4 && context_4.id;
-    var core_3, message_component_1, message_service_2;
+    var __moduleName = context_6 && context_6.id;
+    var core_4, message_component_1, message_service_2, error_service_2;
     var MessageListComponent;
     return {
         setters:[
-            function (core_3_1) {
-                core_3 = core_3_1;
+            function (core_4_1) {
+                core_4 = core_4_1;
             },
             function (message_component_1_1) {
                 message_component_1 = message_component_1_1;
             },
             function (message_service_2_1) {
                 message_service_2 = message_service_2_1;
+            },
+            function (error_service_2_1) {
+                error_service_2 = error_service_2_1;
             }],
         execute: function() {
             MessageListComponent = (function () {
-                function MessageListComponent(_messageService) {
+                function MessageListComponent(_messageService, _errorService) {
                     this._messageService = _messageService;
+                    this._errorService = _errorService;
                 }
                 MessageListComponent.prototype.ngOnInit = function () {
                     var _this = this;
@@ -194,42 +249,46 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
                         console.log(messages);
                         _this.messages = messages;
                         _this._messageService.messages = messages;
-                    }, function (error) { return console.error(error); });
+                    }, function (error) { return _this._errorService.handleError(error); });
                 };
                 MessageListComponent = __decorate([
-                    core_3.Component({
+                    core_4.Component({
                         selector: 'my-message-list',
                         template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n           <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>         \n           <!-- The underlying code is for beta17 > rc*  release -->\n           <!-- <my-message *ngFor=\"let message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message> -->\n        </section>              \n    ",
                         directives: [message_component_1.MessageComponent]
                     }), 
-                    __metadata('design:paramtypes', [message_service_2.MessageService])
+                    __metadata('design:paramtypes', [message_service_2.MessageService, error_service_2.ErrorService])
                 ], MessageListComponent);
                 return MessageListComponent;
             }());
-            exports_4("MessageListComponent", MessageListComponent);
+            exports_6("MessageListComponent", MessageListComponent);
         }
     }
 });
-System.register("messages/message-input.component", ['angular2/core', "messages/message", "messages/message.service"], function(exports_5, context_5) {
+System.register("messages/message-input.component", ['angular2/core', "messages/message", "messages/message.service", "errors/error.service"], function(exports_7, context_7) {
     "use strict";
-    var __moduleName = context_5 && context_5.id;
-    var core_4, message_3, message_service_3;
+    var __moduleName = context_7 && context_7.id;
+    var core_5, message_3, message_service_3, error_service_3;
     var MessageInputComponent;
     return {
         setters:[
-            function (core_4_1) {
-                core_4 = core_4_1;
+            function (core_5_1) {
+                core_5 = core_5_1;
             },
             function (message_3_1) {
                 message_3 = message_3_1;
             },
             function (message_service_3_1) {
                 message_service_3 = message_service_3_1;
+            },
+            function (error_service_3_1) {
+                error_service_3 = error_service_3_1;
             }],
         execute: function() {
             MessageInputComponent = (function () {
-                function MessageInputComponent(_messageService) {
+                function MessageInputComponent(_messageService, _errorService) {
                     this._messageService = _messageService;
+                    this._errorService = _errorService;
                     // Understand that this object is a reference and is everywhere equal.
                     this.message = null;
                 }
@@ -239,7 +298,7 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                         // Edit Case
                         this.message.content = form.content;
                         this._messageService.updateMessage(this.message)
-                            .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
+                            .subscribe(function (data) { return console.log(data); }, function (error) { return _this._errorService.handleError(error); });
                         this.message = null;
                     }
                     else {
@@ -249,7 +308,7 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                             .subscribe(function (data) {
                             console.log(data);
                             _this._messageService.messages.push(data);
-                        }, function (error) { return console.error(error); });
+                        }, function (error) { return _this._errorService.handleError(error); });
                     }
                 };
                 MessageInputComponent.prototype.onCancel = function () {
@@ -258,32 +317,31 @@ System.register("messages/message-input.component", ['angular2/core', "messages/
                 MessageInputComponent.prototype.ngOnInit = function () {
                     var _this = this;
                     this._messageService.messageIsEdit.subscribe(function (message) {
-                        console.log(message);
                         _this.message = message;
                     });
                 };
                 MessageInputComponent = __decorate([
-                    core_4.Component({
+                    core_5.Component({
                         selector: 'my-message-input',
                         template: "\n     <section class=\"col-md-8 col-md-offset-2\">\n        <form (ngSubmit)=\"onSubmit(f.value)\" #f=\"ngForm\">\n            <div class=\"form-group\">\n                <label for=\"content\">Content</label>\n                <input ngControl=\"content\" type=\"text\" class=\"form-control\" id=\"content\" #input [value]=\"message?.content\">                \n            </div>\n            <button type=\"submit\" class=\"btn btn-primary\">{{ !message ? 'Send Message' : 'Save Message'}}</button>\n            <button type=\"button\" class=\"btn btn-danger\" (click)=\"onCancel()\" *ngIf=\"message\">Cancel</button>\n        </form>\n     </section>\n    "
                     }), 
-                    __metadata('design:paramtypes', [message_service_3.MessageService])
+                    __metadata('design:paramtypes', [message_service_3.MessageService, error_service_3.ErrorService])
                 ], MessageInputComponent);
                 return MessageInputComponent;
             }());
-            exports_5("MessageInputComponent", MessageInputComponent);
+            exports_7("MessageInputComponent", MessageInputComponent);
         }
     }
 });
-System.register("messages/messages.component", ["angular2/core", "messages/message-list.component", "messages/message-input.component"], function(exports_6, context_6) {
+System.register("messages/messages.component", ["angular2/core", "messages/message-list.component", "messages/message-input.component"], function(exports_8, context_8) {
     "use strict";
-    var __moduleName = context_6 && context_6.id;
-    var core_5, message_list_component_1, message_input_component_1;
+    var __moduleName = context_8 && context_8.id;
+    var core_6, message_list_component_1, message_input_component_1;
     var MessagesComponent;
     return {
         setters:[
-            function (core_5_1) {
-                core_5 = core_5_1;
+            function (core_6_1) {
+                core_6 = core_6_1;
             },
             function (message_list_component_1_1) {
                 message_list_component_1 = message_list_component_1_1;
@@ -296,7 +354,7 @@ System.register("messages/messages.component", ["angular2/core", "messages/messa
                 function MessagesComponent() {
                 }
                 MessagesComponent = __decorate([
-                    core_5.Component({
+                    core_6.Component({
                         selector: 'my-messages',
                         template: "\n      <div class=\"row spacing\">\n           <my-message-input></my-message-input>\n     </div>\n      <div class=\"row spacing\">\n           <my-message-list></my-message-list>\n    </div>\n\n    ",
                         directives: [message_list_component_1.MessageListComponent, message_input_component_1.MessageInputComponent]
@@ -305,13 +363,13 @@ System.register("messages/messages.component", ["angular2/core", "messages/messa
                 ], MessagesComponent);
                 return MessagesComponent;
             }());
-            exports_6("MessagesComponent", MessagesComponent);
+            exports_8("MessagesComponent", MessagesComponent);
         }
     }
 });
-System.register("auth/user", [], function(exports_7, context_7) {
+System.register("auth/user", [], function(exports_9, context_9) {
     "use strict";
-    var __moduleName = context_7 && context_7.id;
+    var __moduleName = context_9 && context_9.id;
     var User;
     return {
         setters:[],
@@ -325,19 +383,19 @@ System.register("auth/user", [], function(exports_7, context_7) {
                 }
                 return User;
             }());
-            exports_7("User", User);
+            exports_9("User", User);
         }
     }
 });
-System.register("auth/auth.service", ["angular2/core", "angular2/http", 'rxjs/Rx', "rxjs/Observable"], function(exports_8, context_8) {
+System.register("auth/auth.service", ["angular2/core", "angular2/http", 'rxjs/Rx', "rxjs/Observable"], function(exports_10, context_10) {
     "use strict";
-    var __moduleName = context_8 && context_8.id;
-    var core_6, http_2, Observable_2;
+    var __moduleName = context_10 && context_10.id;
+    var core_7, http_2, Observable_2;
     var AuthService;
     return {
         setters:[
-            function (core_6_1) {
-                core_6 = core_6_1;
+            function (core_7_1) {
+                core_7 = core_7_1;
             },
             function (http_2_1) {
                 http_2 = http_2_1;
@@ -372,24 +430,24 @@ System.register("auth/auth.service", ["angular2/core", "angular2/http", 'rxjs/Rx
                     return localStorage.getItem('token') !== null;
                 };
                 AuthService = __decorate([
-                    core_6.Injectable(), 
+                    core_7.Injectable(), 
                     __metadata('design:paramtypes', [http_2.Http])
                 ], AuthService);
                 return AuthService;
             }());
-            exports_8("AuthService", AuthService);
+            exports_10("AuthService", AuthService);
         }
     }
 });
-System.register("auth/signup.component", ['angular2/core', "angular2/common", "auth/user", "auth/auth.service"], function(exports_9, context_9) {
+System.register("auth/signup.component", ['angular2/core', "angular2/common", "auth/user", "auth/auth.service", "errors/error.service"], function(exports_11, context_11) {
     "use strict";
-    var __moduleName = context_9 && context_9.id;
-    var core_7, common_1, user_1, auth_service_1;
+    var __moduleName = context_11 && context_11.id;
+    var core_8, common_1, user_1, auth_service_1, error_service_4;
     var SignupComponent;
     return {
         setters:[
-            function (core_7_1) {
-                core_7 = core_7_1;
+            function (core_8_1) {
+                core_8 = core_8_1;
             },
             function (common_1_1) {
                 common_1 = common_1_1;
@@ -399,18 +457,23 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common", "a
             },
             function (auth_service_1_1) {
                 auth_service_1 = auth_service_1_1;
+            },
+            function (error_service_4_1) {
+                error_service_4 = error_service_4_1;
             }],
         execute: function() {
             SignupComponent = (function () {
-                function SignupComponent(_fb, _authService) {
+                function SignupComponent(_fb, _authService, _errorService) {
                     this._fb = _fb;
                     this._authService = _authService;
+                    this._errorService = _errorService;
                 }
                 SignupComponent.prototype.onSubmit = function () {
+                    var _this = this;
                     var user = new user_1.User(this.myForm.value.email, this.myForm.value.password, this.myForm.value.firstName, this.myForm.value.lastName);
                     console.log(user);
                     this._authService.signup(user)
-                        .subscribe(function (data) { return console.log(data); }, function (error) { return console.error(error); });
+                        .subscribe(function (data) { return console.log(data); }, function (error) { return _this._errorService.handleError(error); });
                 };
                 SignupComponent.prototype.ngOnInit = function () {
                     this.myForm = this._fb.group({
@@ -429,27 +492,27 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common", "a
                     }
                 };
                 SignupComponent = __decorate([
-                    core_7.Component({
+                    core_8.Component({
                         selector: 'my-signup',
                         template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <form [ngFormModel]=\"myForm\" (ngSubmit)=\"onSubmit()\">\n                <div class=\"form-group\">\n                    <label for=\"firstName\">First Name</label>\n                    <input [ngFormControl]=\"myForm.find('firstName')\" type=\"text\" id=\"firstName\" class=\"form-control\">\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"lastName\">Last Name</label>\n                    <input [ngFormControl]=\"myForm.find('lastName')\" type=\"text\" id=\"lastName\" class=\"form-control\">\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"email\">Mail</label>\n                    <input [ngFormControl]=\"myForm.find('email')\" type=\"text\" id=\"email\" class=\"form-control\">\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"password\">Password</label>\n                    <input [ngFormControl]=\"myForm.find('password')\" type=\"password\" id=\"password\" class=\"form-control\">\n                </div>\n                <button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"!myForm.valid\">Sign Up</button>\n            </form>\n        </section>\n    "
                     }), 
-                    __metadata('design:paramtypes', [common_1.FormBuilder, auth_service_1.AuthService])
+                    __metadata('design:paramtypes', [common_1.FormBuilder, auth_service_1.AuthService, error_service_4.ErrorService])
                 ], SignupComponent);
                 return SignupComponent;
             }());
-            exports_9("SignupComponent", SignupComponent);
+            exports_11("SignupComponent", SignupComponent);
         }
     }
 });
-System.register("auth/signin.component", ['angular2/core', "angular2/common", "auth/auth.service", "auth/user", "angular2/router"], function(exports_10, context_10) {
+System.register("auth/signin.component", ['angular2/core', "angular2/common", "auth/auth.service", "auth/user", "angular2/router", "errors/error.service"], function(exports_12, context_12) {
     "use strict";
-    var __moduleName = context_10 && context_10.id;
-    var core_8, common_2, auth_service_2, user_2, router_1;
+    var __moduleName = context_12 && context_12.id;
+    var core_9, common_2, auth_service_2, user_2, router_1, error_service_5;
     var SigninComponent;
     return {
         setters:[
-            function (core_8_1) {
-                core_8 = core_8_1;
+            function (core_9_1) {
+                core_9 = core_9_1;
             },
             function (common_2_1) {
                 common_2 = common_2_1;
@@ -462,13 +525,17 @@ System.register("auth/signin.component", ['angular2/core', "angular2/common", "a
             },
             function (router_1_1) {
                 router_1 = router_1_1;
+            },
+            function (error_service_5_1) {
+                error_service_5 = error_service_5_1;
             }],
         execute: function() {
             SigninComponent = (function () {
-                function SigninComponent(_fb, _authService, _router) {
+                function SigninComponent(_fb, _authService, _router, _errorService) {
                     this._fb = _fb;
                     this._authService = _authService;
                     this._router = _router;
+                    this._errorService = _errorService;
                 }
                 SigninComponent.prototype.onSubmit = function () {
                     var _this = this;
@@ -478,7 +545,7 @@ System.register("auth/signin.component", ['angular2/core', "angular2/common", "a
                         localStorage.setItem('token', data.obj);
                         localStorage.setItem('userId', data.userId);
                         _this._router.navigateByUrl('/');
-                    }, function (error) { return console.error(error); });
+                    }, function (error) { return _this._errorService.handleError(error); });
                 };
                 SigninComponent.prototype.ngOnInit = function () {
                     this.myForm = this._fb.group({
@@ -495,27 +562,27 @@ System.register("auth/signin.component", ['angular2/core', "angular2/common", "a
                     }
                 };
                 SigninComponent = __decorate([
-                    core_8.Component({
+                    core_9.Component({
                         selector: 'my-signin',
                         template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <form [ngFormModel]=\"myForm\" (ngSubmit)=\"onSubmit()\">\n                <div class=\"form-group\">\n                    <label for=\"email\">Mail</label>\n                    <input [ngFormControl]=\"myForm.find('email')\" type=\"text\" id=\"email\" class=\"form-control\">\n                </div>\n                <div class=\"form-group\">\n                    <label for=\"password\">Password</label>\n                    <input [ngFormControl]=\"myForm.find('password')\" type=\"password\" id=\"password\" class=\"form-control\">\n                </div>\n                <button type=\"submit\" class=\"btn btn-primary\" [disabled]=\"!myForm.valid\">Sign In</button>\n            </form>\n        </section>\n    "
                     }), 
-                    __metadata('design:paramtypes', [common_2.FormBuilder, auth_service_2.AuthService, router_1.Router])
+                    __metadata('design:paramtypes', [common_2.FormBuilder, auth_service_2.AuthService, router_1.Router, error_service_5.ErrorService])
                 ], SigninComponent);
                 return SigninComponent;
             }());
-            exports_10("SigninComponent", SigninComponent);
+            exports_12("SigninComponent", SigninComponent);
         }
     }
 });
-System.register("auth/logout.component", ['angular2/core', "auth/auth.service", "angular2/router"], function(exports_11, context_11) {
+System.register("auth/logout.component", ['angular2/core', "auth/auth.service", "angular2/router"], function(exports_13, context_13) {
     "use strict";
-    var __moduleName = context_11 && context_11.id;
-    var core_9, auth_service_3, router_2;
+    var __moduleName = context_13 && context_13.id;
+    var core_10, auth_service_3, router_2;
     var LogoutComponent;
     return {
         setters:[
-            function (core_9_1) {
-                core_9 = core_9_1;
+            function (core_10_1) {
+                core_10 = core_10_1;
             },
             function (auth_service_3_1) {
                 auth_service_3 = auth_service_3_1;
@@ -529,33 +596,33 @@ System.register("auth/logout.component", ['angular2/core', "auth/auth.service", 
                     this._authService = _authService;
                     this._router = _router;
                 }
+                // Clear the localstorage and navigate to signin page
                 LogoutComponent.prototype.onLogout = function () {
-                    // Clear the localstorage and navigate to signin page
                     this._authService.logout();
                     this._router.navigate(['Signin']);
                 };
                 LogoutComponent = __decorate([
-                    core_9.Component({
+                    core_10.Component({
                         selector: 'my-logout',
-                        template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <button class=\"btn btn-danger\" (click)=\"onLogout()\">Logout</button>\n        </section>\n\n\n    "
+                        template: "\n        <section class=\"col-md-8 col-md-offset-2\">\n            <button class=\"btn btn-danger\" (click)=\"onLogout()\">Logout</button>\n        </section>\n    "
                     }), 
                     __metadata('design:paramtypes', [auth_service_3.AuthService, router_2.Router])
                 ], LogoutComponent);
                 return LogoutComponent;
             }());
-            exports_11("LogoutComponent", LogoutComponent);
+            exports_13("LogoutComponent", LogoutComponent);
         }
     }
 });
-System.register("auth/authentication.component", ['angular2/core', "auth/signup.component", "angular2/router", "auth/signin.component", "auth/logout.component", "auth/auth.service"], function(exports_12, context_12) {
+System.register("auth/authentication.component", ['angular2/core', "auth/signup.component", "angular2/router", "auth/signin.component", "auth/logout.component", "auth/auth.service"], function(exports_14, context_14) {
     "use strict";
-    var __moduleName = context_12 && context_12.id;
-    var core_10, signup_component_1, router_3, signin_component_1, logout_component_1, auth_service_4;
+    var __moduleName = context_14 && context_14.id;
+    var core_11, signup_component_1, router_3, signin_component_1, logout_component_1, auth_service_4;
     var AuthenticationComponent;
     return {
         setters:[
-            function (core_10_1) {
-                core_10 = core_10_1;
+            function (core_11_1) {
+                core_11 = core_11_1;
             },
             function (signup_component_1_1) {
                 signup_component_1 = signup_component_1_1;
@@ -581,7 +648,7 @@ System.register("auth/authentication.component", ['angular2/core', "auth/signup.
                     return this._authService.isLoggedIn();
                 };
                 AuthenticationComponent = __decorate([
-                    core_10.Component({
+                    core_11.Component({
                         selector: 'my-auth',
                         template: "\n        <header class=\"row spacing\">\n            <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-tabs\">                    \n                    <li><a [routerLink]=\"['Signin']\" *ngIf=\"!isLoggedIn()\">Signin</a></li>\n                    <li><a [routerLink]=\"['Signup']\">Signup</a></li>\n                    <li><a [routerLink]=\"['Logout']\" *ngIf=\"isLoggedIn()\">Logout</a></li>\n                </ul>        \n            </nav>\n        </header>\n        <div class=\"row spacing\">\n            <router-outlet></router-outlet>\n        \n        </div>\n    ",
                         directives: [router_3.ROUTER_DIRECTIVES, signup_component_1.SignupComponent],
@@ -596,19 +663,19 @@ System.register("auth/authentication.component", ['angular2/core', "auth/signup.
                 ], AuthenticationComponent);
                 return AuthenticationComponent;
             }());
-            exports_12("AuthenticationComponent", AuthenticationComponent);
+            exports_14("AuthenticationComponent", AuthenticationComponent);
         }
     }
 });
-System.register("header.component", ['angular2/core', "angular2/router"], function(exports_13, context_13) {
+System.register("header.component", ['angular2/core', "angular2/router"], function(exports_15, context_15) {
     "use strict";
-    var __moduleName = context_13 && context_13.id;
-    var core_11, router_4;
+    var __moduleName = context_15 && context_15.id;
+    var core_12, router_4;
     var HeaderComponent;
     return {
         setters:[
-            function (core_11_1) {
-                core_11 = core_11_1;
+            function (core_12_1) {
+                core_12 = core_12_1;
             },
             function (router_4_1) {
                 router_4 = router_4_1;
@@ -618,7 +685,7 @@ System.register("header.component", ['angular2/core', "angular2/router"], functi
                 function HeaderComponent() {
                 }
                 HeaderComponent = __decorate([
-                    core_11.Component({
+                    core_12.Component({
                         selector: 'my-header',
                         template: "\n        <header class=\"row\">\n             <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-pills\">\n                    <li><a [routerLink]=\"['Messages']\">Messages</a></li>\n                    <li><a [routerLink]=\"['Auth']\">Authentication</a></li>\n                </ul>\n              </nav>\n        </header>\n     ",
                         directives: [router_4.ROUTER_DIRECTIVES],
@@ -628,68 +695,22 @@ System.register("header.component", ['angular2/core', "angular2/router"], functi
                 ], HeaderComponent);
                 return HeaderComponent;
             }());
-            exports_13("HeaderComponent", HeaderComponent);
-        }
-    }
-});
-System.register("errors/error", [], function(exports_14, context_14) {
-    "use strict";
-    var __moduleName = context_14 && context_14.id;
-    var Error;
-    return {
-        setters:[],
-        execute: function() {
-            Error = (function () {
-                function Error(title, message) {
-                    this.title = title;
-                    this.message = message;
-                }
-                return Error;
-            }());
-            exports_14("Error", Error);
-        }
-    }
-});
-System.register("errors/error.service", ["angular2/core", "errors/error"], function(exports_15, context_15) {
-    "use strict";
-    var __moduleName = context_15 && context_15.id;
-    var core_12, error_1;
-    var ErrorService;
-    return {
-        setters:[
-            function (core_12_1) {
-                core_12 = core_12_1;
-            },
-            function (error_1_1) {
-                error_1 = error_1_1;
-            }],
-        execute: function() {
-            ErrorService = (function () {
-                function ErrorService() {
-                    this.errorOccurred = new core_12.EventEmitter();
-                }
-                ErrorService.prototype.handleError = function (error) {
-                    var errorData = new error_1.Error(error.title, error.error.message);
-                    this.errorOccurred.emit(errorData);
-                };
-                return ErrorService;
-            }());
-            exports_15("ErrorService", ErrorService);
+            exports_15("HeaderComponent", HeaderComponent);
         }
     }
 });
 System.register("errors/error.component", ["angular2/core", "errors/error.service"], function(exports_16, context_16) {
     "use strict";
     var __moduleName = context_16 && context_16.id;
-    var core_13, error_service_1;
+    var core_13, error_service_6;
     var ErrorComponent;
     return {
         setters:[
             function (core_13_1) {
                 core_13 = core_13_1;
             },
-            function (error_service_1_1) {
-                error_service_1 = error_service_1_1;
+            function (error_service_6_1) {
+                error_service_6 = error_service_6_1;
             }],
         execute: function() {
             ErrorComponent = (function () {
@@ -710,11 +731,10 @@ System.register("errors/error.component", ["angular2/core", "errors/error.servic
                 ErrorComponent = __decorate([
                     core_13.Component({
                         selector: 'my-error',
-                        template: "\n        <div class=\"backdrop\" [ngStyle]=\"{'display': errorDisplay}\"></div>\n        <div class=\"modal\" tabindex=\"-1\" role=\"dialog\" [ngStyle[=\"{'display': errorDisplay}\">\n            <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n                       <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"onErrorHandle()\">\n                            <span aria-hidden=\"true\">&times;</span> \n                       </button>\n                       <h4 class=\"modal-title\">{{ errorData?.title }}</h4>\n                    </div>\n                    <div class=\"modal-body\">\n                        <p>{{ errorData?.message }}</p>\n                    </div>\n                    <div class=\"modal-footer\">\n                        <button type=\"button\" class=\"btn btn-defailt\" (click)=\"onErrorHandle()\">Close</button>\n                    </div>\n                </div> <!-- modal-content-->            \n            </div><!-- modal-dialog-->\n        </div><!-- modal-->\n    ",
-                        styles: ["\n        .backdrop {\n            background-color: rgba(0,0,0,0.6);\n            position: fixed;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100vh;\n        }        \n    "],
-                        providers: [error_service_1.ErrorService]
+                        template: "\n        <div class=\"backdrop\" [ngStyle]=\"{'display': errorDisplay}\"></div>\n        <div class=\"modal\" tabindex=\"-1\" role=\"dialog\" [ngStyle]=\"{'display': errorDisplay}\">\n            <div class=\"modal-dialog\">\n                <div class=\"modal-content\">\n                    <div class=\"modal-header\">\n                       <button type=\"button\" class=\"close\" aria-label=\"Close\" (click)=\"onErrorHandle()\">\n                            <span aria-hidden=\"true\">&times;</span> \n                       </button>\n                       <h4 class=\"modal-title\">{{ errorData?.title }}</h4>\n                    </div>\n                    <div class=\"modal-body\">\n                        <p>{{ errorData?.message }}</p>\n                    </div>\n                    <div class=\"modal-footer\">\n                        <button type=\"button\" class=\"btn btn-defailt\" (click)=\"onErrorHandle()\">Close</button>\n                    </div>\n                </div> <!-- modal-content-->            \n            </div><!-- modal-dialog-->\n        </div><!-- modal-->\n    ",
+                        styles: ["\n        .backdrop {\n            background-color: rgba(0,0,0,0.6);\n            position: fixed;\n            top: 0;\n            left: 0;\n            width: 100%;\n            height: 100vh;\n        }        \n    "]
                     }), 
-                    __metadata('design:paramtypes', [error_service_1.ErrorService])
+                    __metadata('design:paramtypes', [error_service_6.ErrorService])
                 ], ErrorComponent);
                 return ErrorComponent;
             }());
@@ -769,10 +789,10 @@ System.register("app.component", ['angular2/core', "angular2/router", "messages/
         }
     }
 });
-System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core", "angular2/http", "auth/auth.service"], function(exports_18, context_18) {
+System.register("boot", ['angular2/platform/browser', "app.component", "messages/message.service", "angular2/router", "angular2/core", "angular2/http", "auth/auth.service", "errors/error.service"], function(exports_18, context_18) {
     "use strict";
     var __moduleName = context_18 && context_18.id;
-    var browser_1, app_component_1, message_service_4, router_6, core_15, http_3, auth_service_5;
+    var browser_1, app_component_1, message_service_4, router_6, core_15, http_3, auth_service_5, error_service_7;
     return {
         setters:[
             function (browser_1_1) {
@@ -795,9 +815,12 @@ System.register("boot", ['angular2/platform/browser', "app.component", "messages
             },
             function (auth_service_5_1) {
                 auth_service_5 = auth_service_5_1;
+            },
+            function (error_service_7_1) {
+                error_service_7 = error_service_7_1;
             }],
         execute: function() {
-            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, auth_service_5.AuthService, router_6.ROUTER_PROVIDERS, core_15.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy }), http_3.HTTP_PROVIDERS]);
+            browser_1.bootstrap(app_component_1.AppComponent, [message_service_4.MessageService, auth_service_5.AuthService, error_service_7.ErrorService, router_6.ROUTER_PROVIDERS, core_15.provide(router_6.LocationStrategy, { useClass: router_6.HashLocationStrategy }), http_3.HTTP_PROVIDERS]);
         }
     }
 });
