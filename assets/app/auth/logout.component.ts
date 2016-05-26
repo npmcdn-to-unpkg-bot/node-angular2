@@ -13,7 +13,8 @@ import {Router} from "angular2/router";
 
 export class LogoutComponent {
 
-    constructor(private _authService: AuthService, private _router: Router) {}
+    constructor(private _authService:AuthService, private _router:Router) {
+    }
 
     // Clear the localstorage and navigate to signin page
     onLogout() {

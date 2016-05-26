@@ -254,7 +254,7 @@ System.register("messages/message-list.component", ['angular2/core', "messages/m
                 MessageListComponent = __decorate([
                     core_4.Component({
                         selector: 'my-message-list',
-                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n           <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>         \n           <!-- The underlying code is for beta17 > rc*  release -->\n           <!-- <my-message *ngFor=\"let message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message> -->\n        </section>              \n    ",
+                        template: "\n       <section class=\"col-md-8 col-md-offset-2\">\n           <my-message *ngFor=\"#message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message>       \n             \n           <!-- The underlying code is for beta17 > rc*  release -->\n           <!-- <my-message *ngFor=\"let message of messages\" [message]=\"message\"  (editClicked)=\"message.content = $event\"></my-message> -->\n        </section>              \n    ",
                         directives: [message_component_1.MessageComponent]
                     }), 
                     __metadata('design:paramtypes', [message_service_2.MessageService, error_service_2.ErrorService])
@@ -486,6 +486,7 @@ System.register("auth/signup.component", ['angular2/core', "angular2/common", "a
                         password: ['', common_1.Validators.required]
                     });
                 };
+                // This is a custom validator with RegEx for email validation
                 SignupComponent.prototype.isEmail = function (control) {
                     if (!control.value.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
                         return { invalidMail: true };
@@ -556,6 +557,7 @@ System.register("auth/signin.component", ['angular2/core', "angular2/common", "a
                         password: ['', common_2.Validators.required]
                     });
                 };
+                // This is a custom validator with RegEx for email validation
                 SigninComponent.prototype.isEmail = function (control) {
                     if (!control.value.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
                         return { invalidMail: true };
@@ -650,7 +652,7 @@ System.register("auth/authentication.component", ['angular2/core', "auth/signup.
                 AuthenticationComponent = __decorate([
                     core_11.Component({
                         selector: 'my-auth',
-                        template: "\n        <header class=\"row spacing\">\n            <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-tabs\">                    \n                    <li><a [routerLink]=\"['Signin']\" *ngIf=\"!isLoggedIn()\">Signin</a></li>\n                    <li><a [routerLink]=\"['Signup']\">Signup</a></li>\n                    <li><a [routerLink]=\"['Logout']\" *ngIf=\"isLoggedIn()\">Logout</a></li>\n                </ul>        \n            </nav>\n        </header>\n        <div class=\"row spacing\">\n            <router-outlet></router-outlet>\n        \n        </div>\n    ",
+                        template: "\n        <header class=\"row spacing\">\n            <nav class=\"col-md-8 col-md-offset-2\">\n                <ul class=\"nav nav-tabs\">                    \n                    <li><a [routerLink]=\"['Signin']\" *ngIf=\"!isLoggedIn()\">Signin</a></li>\n                    <li><a [routerLink]=\"['Signup']\">Signup</a></li>\n                    <li><a [routerLink]=\"['Logout']\" *ngIf=\"isLoggedIn()\">Logout</a></li>\n                </ul>        \n            </nav>\n        </header>\n        <div class=\"row spacing\">\n            <router-outlet></router-outlet>\n        </div>\n    ",
                         directives: [router_3.ROUTER_DIRECTIVES, signup_component_1.SignupComponent],
                         styles: ["\n        .router-link-active {\n            cursor: default;\n            color: ghostwhite;\n            background-color: lightslategrey;\n            border: 1px solid #ddd;\n            border-bottom-color: dodgerblue;\n        }\n    "]
                     }),

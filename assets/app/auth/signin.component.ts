@@ -52,6 +52,7 @@ export class SigninComponent implements OnInit{
         });
     }
 
+    // This is a custom validator with RegEx for email validation
     private isEmail(control: Control): {[s: string]: boolean} {
         if (!control.value.match("[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?")) {
             return {invalidMail: true};

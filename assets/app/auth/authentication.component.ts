@@ -19,7 +19,6 @@ import {AuthService} from "./auth.service";
         </header>
         <div class="row spacing">
             <router-outlet></router-outlet>
-        
         </div>
     `,
     directives: [ROUTER_DIRECTIVES, SignupComponent],
@@ -34,6 +33,7 @@ import {AuthService} from "./auth.service";
     `]
 })
 
+
 @RouteConfig([
     {path: '/signin', name: 'Signin', component: SigninComponent, useAsDefault: true},
     {path: '/signup', name: 'Signup', component: SignupComponent},
@@ -42,7 +42,8 @@ import {AuthService} from "./auth.service";
 
 export class AuthenticationComponent {
 
-    constructor(private _authService: AuthService) {}
+    constructor(private _authService:AuthService) {
+    }
 
     isLoggedIn() {
         return this._authService.isLoggedIn();

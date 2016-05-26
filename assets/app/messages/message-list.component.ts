@@ -8,7 +8,8 @@ import {ErrorService} from "../errors/error.service";
     selector: 'my-message-list',
     template: `
        <section class="col-md-8 col-md-offset-2">
-           <my-message *ngFor="#message of messages" [message]="message"  (editClicked)="message.content = $event"></my-message>         
+           <my-message *ngFor="#message of messages" [message]="message"  (editClicked)="message.content = $event"></my-message>       
+             
            <!-- The underlying code is for beta17 > rc*  release -->
            <!-- <my-message *ngFor="let message of messages" [message]="message"  (editClicked)="message.content = $event"></my-message> -->
         </section>              
